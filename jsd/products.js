@@ -1,5 +1,5 @@
 /* =========================================================
-   PRODUCT DATA — extended with more items & better specs
+   PRODUCT DATA — extended with more items & better specs 
    ========================================================= */
 const PRODUCTS = [
   {
