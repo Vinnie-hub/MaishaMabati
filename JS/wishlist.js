@@ -1,5 +1,5 @@
 /* =========================================================
-   WISHLIST — localStorage
+   WISHLIST — localStorage 
    ========================================================= */
 function getWishlist() {
   try {
