@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Maisha Mabati</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-main">
+      <button class="menu-toggle">☰</button>
+      <a href="index.html" class="brand"><div class="logo"><img src="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789197790/Maisha_mabati_logo_lam5sr.png" alt="Maisha Mabati Logo"></div></a>
+      <form class="search-bar"><input type="search" placeholder="Search products..."><button>🔍</button></form>
+      <div class="header-icons">
+        <a href="cart.html" class="icon-btn"><span class="icon">🛒</span><span class="badge" data-badge="cart" style="display:none">0</span></a>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav"><div class="container"><ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul></div></nav>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Get in Touch</h1>
+    <p>We're here to help — reach us on WhatsApp, phone or email.</p>
+  </div>
+</section>
+
+<section class="container">
+  <div class="contact-grid">
+    <div class="contact-info-card">
+      <div class="contact-item">
+        <div class="ico">📞</div>
+        <div><h4>Phone</h4><p><a href="tel:+254785002606">+254 785 002 606</a></p></div>
+      </div>
+      <div class="contact-item">
+        <div class="ico">💬</div>
+        <div><h4>WhatsApp</h4><p><a href="https://wa.me/254785002606" target="_blank" rel="noopener">Chat with us</a></p></div>
+      </div>
+      <div class="contact-item">
+        <div class="ico">✉️</div>
+        <div><h4>Email</h4><p><a href="mailto:info@maishamabati.co.ke">info@maishamabati.co.ke</a></p></div>
+      </div>
+      <div class="contact-item">
+        <div class="ico">📍</div>
+        <div><h4>Location</h4><p>Ruiru, Kiambu County, Kenya</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="ico">🕒</div>
+        <div><h4>Opening Hours</h4><p>Mon–Fri: 9:00–20:00<br>Sat: 11:00–15:00</p></div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3>Send us a message</h3>
+      <form onsubmit="event.preventDefault(); showToast('Message ready! Please send via WhatsApp.'); window.open('https://wa.me/254785002606?text=' + encodeURIComponent('Name: ' + this.name.value + '\nPhone: ' + this.phone.value + '\nMessage: ' + this.message.value), '_blank');">
+        <div class="form-group"><label>Your Name</label><input name="name" required></div>
+        <div class="form-group"><label>Phone</label><input name="phone" required></div>
+        <div class="form-group"><label>Message</label><textarea name="message" rows="5" required></textarea></div>
+        <button type="submit" class="btn btn-green btn-block">💬 Send via WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border:none;padding-top:40px;">
+      <div>© 2026 Maisha Mabati</div><div>Built with ❤️ in Kenya</div>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/254785002606" target="_blank">💬</a>
+
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/compare.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

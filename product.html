@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — Maisha Mabati</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-main">
+      <button class="menu-toggle">☰</button>
+      <a href="index.html" class="brand"><div class="logo">M</div><div>Maisha Mabati<small>Roofing & Building</small></div></a>
+      <form class="search-bar"><input type="search" placeholder="Search products..."><button>🔍</button></form>
+      <div class="header-icons">
+        <a href="compare.html" class="icon-btn"><span class="icon">⇄</span><span class="badge" data-badge="compare" style="display:none">0</span></a>
+        <a href="wishlist.html" class="icon-btn"><span class="icon">♡</span><span class="badge" data-badge="wishlist" style="display:none">0</span></a>
+        <a href="cart.html" class="icon-btn"><span class="icon">🛒</span><span class="badge" data-badge="cart" style="display:none">0</span></a>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav"><div class="container"><ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul></div></nav>
+</header>
+
+<div class="overlay"></div>
+<aside class="mobile-menu">
+  <h3>Menu</h3>
+  <a href="index.html">Home</a><a href="shop.html">Shop</a>
+  <a href="wishlist.html">Wishlist</a><a href="compare.html">Compare</a>
+  <a href="cart.html">Cart</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</aside>
+
+<main class="container" id="product-page"></main>
+
+<section class="container">
+  <div class="section-head" style="margin-top:40px;">
+    <div class="eyebrow">You may also like</div>
+    <h2>Related Products</h2>
+  </div>
+  <div class="product-grid" id="related-grid"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border:none;padding-top:40px;">
+      <div>© 2026 Maisha Mabati</div><div>Built with ❤️ in Kenya</div>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/254785002606" target="_blank">💬</a>
+
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/compare.js"></script>
+<script src="js/main.js"></script>
+<script>
+(function () {
+  const id = Number(new URLSearchParams(location.search).get('id'));
+  const p = getProductById(id);
+  const wrap = document.getElementById('product-page');
+
+  if (!p) {
+    wrap.innerHTML = `<div class="empty-state" style="margin:60px 0;">
+      <div class="ico">😕</div><h3>Product not found</h3>
+      <p>The product you're looking for doesn't exist.</p>
+      <a href="shop.html" class="btn btn-primary">Back to Shop</a>
+    </div>`;
+    return;
+  }
+
+  document.title = p.name + ' — Maisha Mabati';
+
+  const hasSale = p.salePrice && p.salePrice < p.price;
+  const displayPrice = hasSale ? p.salePrice : p.price;
+
+  let selectedColor = p.colors[0] || null;
+  let selectedVariant = p.variants[0] || null;
+  let qty = 1;
+
+  wrap.innerHTML = `
+    <div class="product-detail">
+      <div>
+        <div class="gallery-main"><img id="main-img" src="${p.images[0]}" alt="${p.name}"></div>
+        <div class="gallery-thumbs" id="thumbs">
+          ${p.images.map((img, i) => `<img src="${img}" data-src="${img}" class="${i===0?'active':''}" alt="">`).join('')}
+        </div>
+      </div>
+      <div class="detail-info">
+        <span class="product-cat">${p.category}</span>
+        <h1>${p.name}</h1>
+        <div class="detail-price">
+          ${hasSale ? `<del>${formatMoney(p.price)}</del><ins>${formatMoney(p.salePrice)}</ins>` : formatMoney(p.price)}
+        </div>
+        <div class="product-stock ${p.stock?'':'out'}" style="font-size:14px;">
+          ${p.stock ? '● In Stock — Ready to ship' : '● Currently Out of Stock'}
+        </div>
+        <p class="detail-desc">${p.description}</p>
+
+        ${p.colors.length ? `
+          <div class="option-group">
+            <h4>Color</h4>
+            <div class="option-list" id="color-options">
+              ${p.colors.map((c,i) => `<button class="option-btn ${i===0?'active':''}" data-color="${c}">${c}</button>`).join('')}
+            </div>
+          </div>` : ''}
+
+        ${p.variants.length ? `
+          <div class="option-group">
+            <h4>Variant</h4>
+            <div class="option-list" id="variant-options">
+              ${p.variants.map((v,i) => `<button class="option-btn ${i===0?'active':''}" data-variant="${v}">${v}</button>`).join('')}
+            </div>
+          </div>` : ''}
+
+        <div class="option-group">
+          <h4>Quantity</h4>
+          <div class="qty-selector">
+            <button id="qty-dec">−</button>
+            <input id="qty-input" type="text" value="1" readonly>
+            <button id="qty-inc">+</button>
+          </div>
+        </div>
+
+        <div class="detail-actions">
+          <button class="btn btn-primary" id="add-cart">🛒 Add to Cart</button>
+          <button class="btn btn-green" id="wa-order">💬 Order via WhatsApp</button>
+          <button class="btn btn-ghost" id="wish-btn">♡ Wishlist</button>
+          <button class="btn btn-ghost" id="cmp-btn">⇄ Compare</button>
+        </div>
+
+        <div class="detail-meta">
+          <p><strong>Category:</strong> ${p.category}</p>
+          <p><strong>Availability:</strong> ${p.stock ? 'In Stock' : 'Out of Stock'}</p>
+          <p><strong>Delivery:</strong> Countrywide · Same-day in Nairobi</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab-headers">
+        <button class="active" data-tab="desc">Description</button>
+        <button data-tab="specs">Specifications</button>
+        <button data-tab="delivery">Delivery & Returns</button>
+      </div>
+      <div class="tab-panel active" data-panel="desc"><p>${p.description}</p></div>
+      <div class="tab-panel" data-panel="specs">
+        <p><strong>Category:</strong> ${p.category}</p>
+        <p><strong>Available Colors:</strong> ${p.colors.join(', ') || '—'}</p>
+        <p><strong>Available Variants:</strong> ${p.variants.join(', ') || '—'}</p>
+        <p><strong>Stock Status:</strong> ${p.stock ? 'In Stock' : 'Out of Stock'}</p>
+      </div>
+      <div class="tab-panel" data-panel="delivery">
+        <p>We deliver countrywide. Nairobi orders can be delivered same-day. For upcountry delivery, please confirm via WhatsApp after placing your order.</p>
+        <p>Returns accepted within 7 days for manufacturing defects only.</p>
+      </div>
+    </div>
+  `;
+
+  // Gallery
+  wrap.querySelectorAll('#thumbs img').forEach(t => {
+    t.addEventListener('click', () => {
+      document.getElementById('main-img').src = t.dataset.src;
+      wrap.querySelectorAll('#thumbs img').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+    });
+  });
+
+  // Color / variant
+  wrap.querySelectorAll('#color-options .option-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      wrap.querySelectorAll('#color-options .option-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      selectedColor = b.dataset.color;
+    });
+  });
+  wrap.querySelectorAll('#variant-options .option-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      wrap.querySelectorAll('#variant-options .option-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      selectedVariant = b.dataset.variant;
+    });
+  });
+
+  // Qty
+  document.getElementById('qty-inc').addEventListener('click', () => {
+    qty++; document.getElementById('qty-input').value = qty;
+  });
+  document.getElementById('qty-dec').addEventListener('click', () => {
+    if (qty > 1) qty--; document.getElementById('qty-input').value = qty;
+  });
+
+  // Actions
+  document.getElementById('add-cart').addEventListener('click', () => {
+    addToCart(p.id, qty, selectedColor, selectedVariant);
+  });
+  document.getElementById('wa-order').addEventListener('click', () => {
+    orderSingleWhatsApp(p.id, qty, selectedColor, selectedVariant);
+  });
+  document.getElementById('wish-btn').addEventListener('click', () => toggleWishlist(p.id));
+  document.getElementById('cmp-btn').addEventListener('click', () => toggleCompare(p.id));
+
+  // Tabs
+  wrap.querySelectorAll('.tab-headers button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      wrap.querySelectorAll('.tab-headers button').forEach(b => b.classList.remove('active'));
+      wrap.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      wrap.querySelector(`.tab-panel[data-panel="${btn.dataset.tab}"]`).classList.add('active');
+    });
+  });
+
+  // Related
+  const related = PRODUCTS.filter(x => x.category === p.category && x.id !== p.id).slice(0, 4);
+  document.getElementById('related-grid').innerHTML = related.map(renderProductCard).join('');
+
+  updateHeaderBadges();
+})();
+</script>
+</body>
+</html>

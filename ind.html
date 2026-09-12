@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maisha Mabati</title>
+<style>
+  /* ============ RESET & BASE ============ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; overflow-x: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #ededed;
+    color: #222;
+    line-height: 1.5;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #2d2a6b;
+    --green: #25D366;
+    --green-dark: #128C7E;
+    --dark: #1a1a1a;
+    --light: #fff;
+    --border: #e3e4e6;
+    --muted: #666;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* ============ HEADER ============ */
+  .site-header {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar {
+    background: #f7f7f7;
+    font-size: 13px;
+    color: #444;
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .topbar a { color: var(--primary); }
+  .topbar a:hover { text-decoration: underline; }
+
+  .header-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px 0;
+  }
+  .site-brand img { width: 118px; }
+
+  .search-form {
+    flex: 1;
+    max-width: 620px;
+    display: flex;
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .search-form input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  .search-form button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 0 18px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+  }
+  .header-actions .action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+  }
+  .header-actions .action .icon { font-size: 20px; }
+  .header-actions .action small { color: var(--muted); font-size: 11px; }
+
+  /* ============ NAV ============ */
+  .main-nav {
+    background: #fff;
+    border-top: 1px solid var(--border);
+  }
+  .main-nav .container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .all-cats {
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .main-nav ul.menu {
+    display: flex;
+    gap: 22px;
+    font-size: 14px;
+    font-weight: 500;
+    flex-wrap: wrap;
+  }
+  .main-nav ul.menu a:hover { color: var(--primary); }
+  .main-nav .help-link {
+    margin-left: auto;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* ============ HERO SLIDER ============ */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: #111;
+    color: #fff;
+    min-height: 420px;
+  }
+  .slides { position: relative; height: 420px; }
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    background-size: cover;
+    background-position: center;
+  }
+  .slide.active { opacity: 1; }
+  .slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+  }
+  .slide-content {
+    position: relative;
+    z-index: 2;
+    max-width: 560px;
+  }
+  .slide-content h1 {
+    font-size: 42px;
+    margin: 0 0 12px;
+    line-height: 1.15;
+  }
+  .slide-content p {
+    font-size: 16px;
+    margin: 0 0 22px;
+    opacity: 0.92;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: #1f1d4d; }
+  .btn.outline {
+    background: transparent;
+    border: 2px solid #000;
+    color: #000;
+  }
+  .btn.outline:hover { background: #000; color: #fff; }
+
+  .slider-dots {
+    position: absolute;
+    bottom: 16px;
+    right: 24px;
+    z-index: 3;
+    display: flex;
+    gap: 8px;
+  }
+  .slider-dots button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+  }
+  .slider-dots button.active { background: #fff; }
+
+  /* ============ FEATURE BOXES ============ */
+  .features {
+    padding: 40px 0;
+    background: #fff;
+  }
+  .features .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .feature-box {
+    display: flex;
+    gap: 14px;
+  }
+  .feature-box .ico {
+    font-size: 32px;
+    color: var(--primary);
+    flex-shrink: 0;
+  }
+  .feature-box h3 {
+    font-size: 16px;
+    margin: 0 0 6px;
+  }
+  .feature-box p {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* ============ SECTION TITLE ============ */
+  .section-title {
+    text-align: center;
+    padding: 40px 16px 10px;
+  }
+  .section-title h2 {
+    font-size: 28px;
+    margin: 0 0 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .section-title p {
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* ============ PRODUCT GRID ============ */
+  .products-section {
+    padding: 30px 0 50px;
+  }
+  .products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .products-header h3 {
+    font-size: 20px;
+    margin: 0;
+  }
+  .countdown {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 14px;
+  }
+  .countdown .count-item {
+    background: var(--primary);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+    min-width: 32px;
+    text-align: center;
+  }
+  .countdown .separator { font-weight: 700; color: var(--primary); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  .product {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+  }
+  .product:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+  .product .thumb {
+    position: relative;
+    aspect-ratio: 1/1;
+    background: #f4f4f4;
+    overflow: hidden;
+  }
+  .product .thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .product .info {
+    padding: 10px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .product .title {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    line-height: 1.3;
+    min-height: 34px;
+  }
+  .product .title a:hover { color: var(--primary); }
+  .product .price {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .product .stock {
+    font-size: 11px;
+    color: #1a8a3a;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .product .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: auto;
+  }
+  .product .actions a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .product .actions .wa {
+    background: var(--green);
+    color: #fff;
+    border: 2px solid var(--green);
+  }
+  .product .actions .wa:hover { background: var(--green-dark); border-color: var(--green-dark); }
+  .product .actions .call {
+    background: transparent;
+    color: #000;
+    border: 2px solid #000;
+  }
+  .product .actions .call:hover { background: #000; color: #fff; }
+
+  /* ============ COUPON BANNER ============ */
+  .coupon {
+    background: linear-gradient(135deg, var(--primary), #4a4690);
+    color: #fff;
+    border-radius: 8px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 20px 0 40px;
+    flex-wrap: wrap;
+  }
+  .coupon .sale {
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .coupon .sale span { font-size: 18px; }
+  .coupon .text h4 { margin: 0 0 4px; font-size: 16px; }
+  .coupon .text p { margin: 0; font-size: 13px; opacity: 0.9; }
+  .coupon .code {
+    background: #fff;
+    color: var(--primary);
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  /* ============ PROMO BANNERS ============ */
+  .promo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 40px 0;
+  }
+  .promo-card {
+    position: relative;
+    color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    background-size: cover;
+    background-position: center;
+  }
+  .promo-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+  }
+  .promo-card .inner { position: relative; z-index: 2; max-width: 380px; }
+  .promo-card .badge {
+    display: inline-block;
+    background: #fff;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .promo-card h3 { font-size: 22px; margin: 0 0 10px; }
+  .promo-card p { font-size: 13px; margin: 0 0 16px; opacity: 0.95; }
+
+  /* ============ WHY US LIST ============ */
+  .why-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 30px;
+    margin: 30px 0 50px;
+    font-size: 14px;
+  }
+  .why-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .why-list li::before {
+    content: "✓";
+    color: #1a8a3a;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ============ TESTIMONIALS ============ */
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 30px 0 60px;
+  }
+  .testimonial {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px;
+  }
+  .testimonial .stars { color: #f5a623; margin-bottom: 8px; letter-spacing: 2px; }
+  .testimonial .quote { font-size: 13px; color: #444; margin: 0 0 16px; }
+  .testimonial .person { display: flex; align-items: center; gap: 10px; }
+  .testimonial .avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .testimonial .name { font-size: 13px; font-weight: 700; }
+  .testimonial .role { font-size: 11px; color: var(--muted); }
+
+  /* ============ FOOTER ============ */
+  .site-footer {
+    background: #1c1b2e;
+    color: #c9c9d4;
+    margin-top: 40px;
+    font-size: 13px;
+  }
+  .footer-widgets {
+    padding: 44px 0 30px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    gap: 30px;
+  }
+  .footer-widgets h4 {
+    color: #fff;
+    font-size: 14px;
+    margin: 0 0 14px;
+  }
+  .footer-widgets p { margin: 0 0 10px; line-height: 1.7; }
+  .footer-widgets a:hover { color: #fff; }
+  .footer-widgets ul li { margin-bottom: 8px; }
+  .footer-widgets .contact strong { color: #fff; font-size: 15px; }
+
+  .footer-bottom {
+    border-top: 1px solid #2e2d45;
+    padding: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12px;
+  }
+  .footer-bottom a:hover { color: #fff; }
+
+  /* ============ MOBILE BOTTOM BAR ============ */
+  .mobile-bottom {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    z-index: 200;
+  }
+  .mobile-bottom ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+  }
+  .mobile-bottom a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 11px;
+    color: #444;
+    gap: 2px;
+  }
+  .mobile-bottom a .icon { font-size: 18px; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    .products-grid { grid-template-columns: repeat(4, 1fr); }
+    .footer-widgets { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 767px) {
+    .topbar .container,
+    .header-main { flex-direction: column; align-items: stretch; }
+    .header-actions { justify-content: space-around; }
+    .search-form { max-width: 100%; }
+    .main-nav .container { gap: 12px; }
+    .all-cats { font-size: 13px; padding: 8px 12px; }
+    .main-nav ul.menu { gap: 14px; font-size: 13px; }
+    .hero, .slides { min-height: 300px; height: 300px; }
+    .slide { padding: 24px; }
+    .slide-content h1 { font-size: 24px; }
+    .slide-content p { font-size: 14px; }
+    .features .container { grid-template-columns: 1fr; }
+    .section-title h2 { font-size: 20px; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .product .title { font-size: 12px; min-height: 32px; }
+    .product .price { font-size: 13px; }
+    .promo { grid-template-columns: 1fr; }
+    .why-list { grid-template-columns: 1fr; }
+    .testimonials { grid-template-columns: 1fr; }
+    .footer-widgets { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .mobile-bottom { display: block; }
+    body { padding-bottom: 62px; }
+    .coupon { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="topbar">
+    <div class="container">
+      <div>Need help? Call us: <a href="tel:0785002606">0785002606</a> or <a href="mailto:info@maishamabati.co.ke">info@maishamabati.co.ke</a></div>
+      <div>
+        <a href="#">About Us</a> &nbsp;·&nbsp;
+        <a href="#">My account</a> &nbsp;·&nbsp;
+        <a href="#">Order Tracking</a> &nbsp;·&nbsp;
+        <a href="#">Wishlist</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header-main">
+      <a href="#" class="site-brand" aria-label="Maisha Mabati">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='118' height='40'><rect width='118' height='40' rx='6' fill='%232d2a6b'/><text x='59' y='26' font-family='Arial' font-size='14' font-weight='bold' fill='white' text-anchor='middle'>MAISHA</text></svg>" alt="Maisha Mabati">
+      </a>
+
+      <form class="search-form" onsubmit="return false;">
+        <input type="search" placeholder="Search for products...">
+        <button type="submit">🔍</button>
+      </form>
+
+      <div class="header-actions">
+        <a href="#" class="action"><span class="icon">👤</span><small>Account</small></a>
+        <a href="#" class="action"><span class="icon">♡</span><small>Wishlist</small></a>
+        <a href="#" class="action"><span class="icon">🛒</span><small>Cart (0)</small></a>
+      </div>
+    </div>
+  </div>
+
+  <nav class="main-nav">
+    <div class="container">
+      <a href="#" class="all-cats">☰ All Categories</a>
+      <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Best Sellers</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <a href="#" class="help-link">Help Center</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= HERO SLIDER ================= -->
+<section class="hero">
+  <div class="slides" id="slides">
+    <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600');">
+      <div class="slide-content">
+        <h1>Sheltering You Today &amp; Tomorrow</h1>
+        <p>High quality galvanized and color steel roofing sheets with durable lifespan for a trusted shelter.</p>
+        <a href="#products" class="btn">Shop Now →</a>
+      </div>
+    </div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600');">
+      <div class="slide-content">
+        <h1>Quality You Can Trust</h1>
+        <p>KEBS-certified alu-zinc and colour-coated mabati, manufactured at our modern plant in Ruiru.</p>
+        <a href="#products" class="btn">Explore Products →</a>
+      </div>
+    </div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600');">
+      <div class="slide-content">
+        <h1>Countrywide Delivery</h1>
+        <p>Fast and reliable delivery to every corner of Kenya — same day available in Nairobi.</p>
+        <a href="#products" class="btn">Order Today →</a>
+      </div>
+    </div>
+  </div>
+  <div class="slider-dots" id="dots"></div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="features">
+  <div class="container">
+    <div class="feature-box">
+      <div class="ico">🛡️</div>
+      <div>
+        <h3>Quality You Can Trust</h3>
+        <p>Manufactured with state-of-the-art technology, ensuring superior strength and durability.</p>
+      </div>
+    </div>
+    <div class="feature-box">
+      <div class="ico">%</div>
+      <div>
+        <h3>Amazing Offers</h3>
+        <p>Competitively priced roofing solutions that balance quality and affordability.</p>
+      </div>
+    </div>
+    <div class="feature-box">
+      <div class="ico">🚚</div>
+      <div>
+        <h3>Fast &amp; Reliable Delivery</h3>
+        <p>Efficient production and a strong distribution network across Kenya and the region.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="products-section" id="products">
+  <div class="container">
+    <div class="products-header">
+      <h3>Latest Deals for This Month</h3>
+      <div class="countdown" id="countdown" data-date="2026/12/31">
+        <div class="count-item days">00</div><span class="separator">:</span>
+        <div class="count-item hours">00</div><span class="separator">:</span>
+        <div class="count-item minutes">00</div><span class="separator">:</span>
+        <div class="count-item second">00</div>
+      </div>
+      <a href="#" class="btn">View All →</a>
+    </div>
+
+    <div class="products-grid" id="products-grid"></div>
+
+    <div class="coupon">
+      <div class="sale">-5<span>%</span></div>
+      <div class="text">
+        <h4>On orders above 50 meters</h4>
+        <p>Use discount code in checkout page or WhatsApp.</p>
+      </div>
+      <div class="code">Whatsapp</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROMO BANNERS ================= -->
+<section class="container">
+  <div class="promo">
+    <div class="promo-card" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200');">
+      <div class="inner">
+        <span class="badge">Order Today</span>
+        <h3>Our Roofing Sheets Are Distinctly Different</h3>
+        <p>KEBS Diamond Mark of Quality. Rustproof, suitable for all Kenyan atmospheric conditions.</p>
+        <a href="#products" class="btn">Shop Now →</a>
+      </div>
+    </div>
+    <div class="promo-card" style="background-image:url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200');">
+      <div class="inner">
+        <span class="badge">On Sale</span>
+        <h3>Get the Right Building Mabati at the Right Price</h3>
+        <p>Shop our popular discounts &amp; offers today.</p>
+        <a href="#products" class="btn">Order Now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY US ================= -->
+<section class="container">
+  <div class="section-title">
+    <h2>Why Maisha Mabati</h2>
+  </div>
+  <ul class="why-list">
+    <li>High corrosive resistance</li>
+    <li>High gloss and scratch resistant</li>
+    <li>Unique heat reflection capabilities</li>
+    <li>Modern appearance and greater aesthetic appeal</li>
+    <li>Value for money</li>
+    <li>Available in all gauges for low, medium and high cost roofing</li>
+    <li>Variety of colours, profiles, and customised sizes</li>
+    <li>Suitable for all applications</li>
+  </ul>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="container">
+  <div class="section-title">
+    <h2>What Our Customers Say</h2>
+    <p>At Maisha Mabati, customer satisfaction is at the heart of everything we do.</p>
+  </div>
+  <div class="testimonials">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"Maisha Mabati roofing sheets are extremely durable and affordable. My house has never looked better."</p>
+      <div class="person">
+        <div class="avatar">TS</div>
+        <div>
+          <div class="name">Tonny Siema</div>
+          <div class="role">Business man</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"Fast delivery and excellent quality! I completed my project on time thanks to Maisha Mabati."</p>
+      <div class="person">
+        <div class="avatar">MA</div>
+        <div>
+          <div class="name">Mary A.</div>
+          <div class="role">Sales Manager, Nairobi</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"I've been using Maisha Alu-zinc sheets for all my projects. Strong, weather-resistant and cost-effective."</p>
+      <div class="person">
+        <div class="avatar">KO</div>
+        <div>
+          <div class="name">Kevin O.</div>
+          <div class="role">Business Manager, Umoja</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-widgets">
+      <div>
+        <h4>About Us</h4>
+        <p>Maisha Mabati was established in 2009 to meet the growing requirements for quality roofing at affordable pricing. It was the vision of Mr Narendra Raval EBS (Guru) to supply building materials at affordable costs to the local Kenyan population.</p>
+      </div>
+      <div class="contact">
+        <h4>Need Help?</h4>
+        <p><strong>+254 785 002 606</strong></p>
+        <p>Monday – Friday: 9:00–20:00<br>Saturday: 11:00–15:00</p>
+        <p><a href="mailto:info@maishamabati.co.ke">info@maishamabati.co.ke</a></p>
+      </div>
+      <div>
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">My Account</a></li>
+          <li><a href="#">Track Products</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#">Your Wishlist</a></li>
+          <li><a href="#">Return Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Store Information</h4>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Order Tracking</a></li>
+          <li><a href="#">Refund and Returns</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>Copyright © 2026 Maisha Mabati. All rights reserved.</div>
+      <div>
+        <a href="#">Privacy Policy</a> · <a href="#">Order Tracking</a> · <a href="#">Refund Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= MOBILE BOTTOM BAR ================= -->
+<div class="mobile-bottom">
+  <ul>
+    <li><a href="#products"><span class="icon">🏬</span>Store</a></li>
+    <li><a href="#"><span class="icon">🔍</span>Search</a></li>
+    <li><a href="#"><span class="icon">♡</span>Wishlist</a></li>
+    <li><a href="#"><span class="icon">👤</span>Account</a></li>
+    <li><a href="#products"><span class="icon">☰</span>Categories</a></li>
+  </ul>
+</div>
+
+<!-- ================= SCRIPTS ================= -->
+<script>
+/* ---------- PRODUCT DATA ---------- */
+var PRODUCTS = [
+  { name: "SIMBA CEMENT", price: "KSh 600.00", stock: true, img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500" },
+  { name: "Maisha Aluzinc mabati", price: "KSh 250.00 – 350.00", stock: true, img: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=500" },
+  { name: "Maisha box profile", price: "KSh 440.00 – 500.00", stock: true, img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500" },
+  { name: "Maisha dumuzas corrugated", price: "KSh 350.00 – 450.00", stock: true, img: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=500" },
+  { name: "Maisha versatile mabati", price: "KSh 600.00 – 700.00", stock: true, img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500" },
+  { name: "Maisha Roman Tile", price: "KSh 500.00 – 555.00", stock: true, img: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=500" },
+  { name: "building steel & Binding Wire", price: "KSh 210.00", stock: true, img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500" },
+  { name: "Maisha Aluzinc mabati", price: "KSh 250.00 – 350.00", stock: true, img: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=500" },
+  { name: "Maisha box profile", price: "KSh 440.00 – 500.00", stock: true, img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500" },
+  { name: "Maisha Roman Tile", price: "KSh 500.00 – 555.00", stock: true, img: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=500" }
+];
+
+/* ---------- RENDER PRODUCTS ---------- */
+(function renderProducts() {
+  var grid = document.getElementById('products-grid');
+  if (!grid) return;
+  var html = '';
+  PRODUCTS.forEach(function (p) {
+    var waText = encodeURIComponent(
+      "Hi Maisha Mabati,\n\nI'd like to order:\n*Product:* " + p.name + "\n*Price:* " + p.price + "\n\nPlease confirm availability. Thank you!"
+    );
+    var waLink = "https://wa.me/254785002606?text=" + waText;
+    var callLink = "tel:254785002606";
+    var stockBadge = p.stock
+      ? '<div class="stock">● In Stock</div>'
+      : '<div class="stock" style="color:#c00">● Out of Stock</div>';
+
+    html +=
+      '<div class="product">' +
+        '<div class="thumb"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></div>' +
+        '<div class="info">' +
+          '<h3 class="title"><a href="#">' + p.name + '</a></h3>' +
+          '<div class="price">' + p.price + '</div>' +
+          stockBadge +
+          '<div class="actions">' +
+            '<a class="wa" href="' + waLink + '" target="_blank" rel="noopener">💬 Order via WhatsApp</a>' +
+            '<a class="call" href="' + callLink + '">📞 Call Now</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  });
+  grid.innerHTML = html;
+})();
+
+/* ---------- HERO SLIDER ---------- */
+(function slider() {
+  var slides = document.querySelectorAll('#slides .slide');
+  var dotsWrap = document.getElementById('dots');
+  var current = 0;
+  var timer;
+
+  if (!slides.length) return;
+
+  slides.forEach(function (_, i) {
+    var b = document.createElement('button');
+    if (i === 0) b.classList.add('active');
+    b.addEventListener('click', function () { go(i); });
+    dotsWrap.appendChild(b);
+  });
+
+  var dots = dotsWrap.querySelectorAll('button');
+
+  function go(i) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (i + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    restart();
+  }
+
+  function next() { go(current + 1); }
+  function restart() { clearInterval(timer); timer = setInterval(next, 4500); }
+
+  restart();
+})();
+
+/* ---------- COUNTDOWN ---------- */
+(function countdown() {
+  var el = document.getElementById('countdown');
+  if (!el) return;
+  var target = new Date(el.getAttribute('data-date').replace(/-/g, '/')).getTime();
+  var daysEl = el.querySelector('.days');
+  var hoursEl = el.querySelector('.hours');
+  var minutesEl = el.querySelector('.minutes');
+  var secondsEl = el.querySelector('.second');
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function tick() {
+    var diff = target - Date.now();
+    if (diff <= 0) {
+      daysEl.textContent = hoursEl.textContent = minutesEl.textContent = secondsEl.textContent = '00';
+      clearInterval(t);
+      return;
+    }
+    var s = Math.floor(diff / 1000);
+    daysEl.textContent    = pad(Math.floor(s / 86400));
+    hoursEl.textContent   = pad(Math.floor((s % 86400) / 3600));
+    minutesEl.textContent = pad(Math.floor((s % 3600) / 60));
+    secondsEl.textContent = pad(s % 60);
+  }
+
+  tick();
+  var t = setInterval(tick, 1000);
+})();
+</script>
+
+</body>
+</html>

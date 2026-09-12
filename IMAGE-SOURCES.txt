@@ -1,0 +1,17 @@
+All product, hero and category images are loaded from Unsplash (free license).
+
+Examples used:
+- https://images.unsplash.com/photo-1503387762-592deb58ef4e  (construction)
+- https://images.unsplash.com/photo-1587293852726-70cdb56c2866  (roofing sheets)
+- https://images.unsplash.com/photo-1518709268805-4e9042af9f23  (cement / steel)
+- https://images.unsplash.com/photo-1541888946425-d81bb19240f5  (building)
+- https://images.unsplash.com/photo-1581094794329-c8112a89af12  (site)
+- https://images.unsplash.com/photo-1565793298595-6a879b1d9492  (steel)
+- https://images.unsplash.com/photo-1581092160562-40aa08e78837  (nails/hardware)
+
+To replace with your own photos:
+1. Put your images in /images/ folder.
+2. Update the "image" and "images" fields in /js/products.js.
+3. Update background-image URLs in css/style.css and the hero section in index.html.
+
+Unsplash license: https://unsplash.com/license

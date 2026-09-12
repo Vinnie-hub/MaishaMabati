@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — Maisha Mabati</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="topbar">
+    <div class="container">
+      <div>📞 <a href="tel:+254785002606">+254 785 002 606</a></div>
+      <div>🚚 Countrywide delivery</div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="header-main">
+      <button class="menu-toggle">☰</button>
+      <a href="index.html" class="brand"><div class="logo">M</div><div>Maisha Mabati<small>Roofing & Building</small></div></a>
+      <form class="search-bar"><input type="search" id="shop-search" placeholder="Search products..."><button>🔍</button></form>
+      <div class="header-icons">
+        <a href="compare.html" class="icon-btn"><span class="icon">⇄</span><span class="badge" data-badge="compare" style="display:none">0</span></a>
+        <a href="wishlist.html" class="icon-btn"><span class="icon">♡</span><span class="badge" data-badge="wishlist" style="display:none">0</span></a>
+        <a href="cart.html" class="icon-btn"><span class="icon">🛒</span><span class="badge" data-badge="cart" style="display:none">0</span></a>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav"><div class="container"><ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html" class="active">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul></div></nav>
+</header>
+
+<div class="overlay"></div>
+<aside class="mobile-menu">
+  <h3>Menu</h3>
+  <a href="index.html">Home</a><a href="shop.html">Shop</a>
+  <a href="wishlist.html">Wishlist</a><a href="compare.html">Compare</a>
+  <a href="cart.html">Cart</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</aside>
+
+<section class="container">
+  <div class="shop-layout">
+    <!-- FILTERS -->
+    <aside class="filters">
+      <div class="filter-group">
+        <h4>Category</h4>
+        <div id="cat-filters"></div>
+      </div>
+      <div class="filter-group">
+        <h4>Max Price</h4>
+        <input type="range" id="price-range" min="0" max="10000" step="100" value="10000">
+        <div class="range-value">Up to <span id="price-value">KSh 10,000</span></div>
+      </div>
+      <div class="filter-group">
+        <h4>Availability</h4>
+        <label><input type="checkbox" id="filter-instock"> In stock only</label>
+      </div>
+      <div class="filter-group">
+        <button class="btn btn-ghost btn-block" id="clear-filters">Clear Filters</button>
+      </div>
+    </aside>
+
+    <!-- PRODUCTS -->
+    <div>
+      <div class="shop-toolbar">
+        <div class="results" id="results-count">Loading…</div>
+        <select id="sort-select">
+          <option value="default">Default sorting</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name-asc">Name: A–Z</option>
+          <option value="name-desc">Name: Z–A</option>
+        </select>
+      </div>
+      <div class="product-grid" id="shop-grid"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-brand"><div class="logo">M</div>Maisha Mabati</div><p>Quality roofing & building materials in Kenya.</p></div>
+      <div><h4>Shop</h4><ul><li><a href="shop.html">All Products</a></li></ul></div>
+      <div><h4>Help</h4><ul><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li>📞 +254 785 002 606</li></ul></div>
+    </div>
+    <div class="footer-bottom"><div>© 2026 Maisha Mabati</div><div>Built with ❤️ in Kenya</div></div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/254785002606" target="_blank">💬</a>
+
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/compare.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* ---------- SHOP PAGE LOGIC ---------- */
+(function () {
+  const params = new URLSearchParams(location.search);
+  let state = {
+    search: params.get('search') || '',
+    category: params.get('category') || '',
+    maxPrice: 10000,
+    inStock: false,
+    sort: 'default'
+  };
+
+  // Populate category filters
+  const catWrap = document.getElementById('cat-filters');
+  catWrap.innerHTML = `<label><input type="checkbox" value="" ${!state.category ? 'checked' : ''}> All</label>` +
+    CONFIG.CATEGORIES.map(c =>
+      `<label><input type="checkbox" value="${c}" ${state.category === c ? 'checked' : ''}> ${c}</label>`
+    ).join('');
+
+  // Pre-fill search
+  document.getElementById('shop-search').value = state.search;
+
+  // Handlers
+  catWrap.addEventListener('change', e => {
+    const checked = catWrap.querySelectorAll('input:checked');
+    // only one category at a time
+    if (e.target.value === '') {
+      catWrap.querySelectorAll('input').forEach(i => i.checked = false);
+      e.target.checked = true;
+      state.category = '';
+    } else {
+      catWrap.querySelector('input[value=""]').checked = false;
+      catWrap.querySelectorAll('input').forEach(i => { if (i !== e.target) i.checked = false; });
+      state.category = e.target.value;
+    }
+    renderShop();
+  });
+
+  document.getElementById('price-range').addEventListener('input', e => {
+    state.maxPrice = Number(e.target.value);
+    document.getElementById('price-value').textContent = 'KSh ' + state.maxPrice.toLocaleString();
+    renderShop();
+  });
+
+  document.getElementById('filter-instock').addEventListener('change', e => {
+    state.inStock = e.target.checked;
+    renderShop();
+  });
+
+  document.getElementById('sort-select').addEventListener('change', e => {
+    state.sort = e.target.value;
+    renderShop();
+  });
+
+  document.getElementById('clear-filters').addEventListener('click', () => {
+    state = { search: '', category: '', maxPrice: 10000, inStock: false, sort: 'default' };
+    document.getElementById('price-range').value = 10000;
+    document.getElementById('price-value').textContent = 'KSh 10,000';
+    document.getElementById('filter-instock').checked = false;
+    document.getElementById('shop-search').value = '';
+    document.getElementById('sort-select').value = 'default';
+    catWrap.querySelectorAll('input').forEach(i => i.checked = i.value === '');
+    renderShop();
+  });
+
+  // Live search from search bar
+  document.querySelector('.search-bar').addEventListener('submit', e => {
+    e.preventDefault();
+    state.search = document.getElementById('shop-search').value.trim();
+    renderShop();
+  });
+  document.getElementById('shop-search').addEventListener('input', e => {
+    state.search = e.target.value.trim();
+    renderShop();
+  });
+
+  function renderShop() {
+    let list = PRODUCTS.slice();
+
+    // Search
+    if (state.search) {
+      const q = state.search.toLowerCase();
+      list = list.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.keywords.some(k => k.toLowerCase().includes(q))
+      );
+    }
+
+    // Category
+    if (state.category) list = list.filter(p => p.category === state.category);
+
+    // Price
+    list = list.filter(p => (p.salePrice || p.price) <= state.maxPrice);
+
+    // Stock
+    if (state.inStock) list = list.filter(p => p.stock);
+
+    // Sort
+    switch (state.sort) {
+      case 'price-asc': list.sort((a,b) => (a.salePrice||a.price) - (b.salePrice||b.price)); break;
+      case 'price-desc': list.sort((a,b) => (b.salePrice||b.price) - (a.salePrice||a.price)); break;
+      case 'name-asc': list.sort((a,b) => a.name.localeCompare(b.name)); break;
+      case 'name-desc': list.sort((a,b) => b.name.localeCompare(a.name)); break;
+    }
+
+    const grid = document.getElementById('shop-grid');
+    document.getElementById('results-count').textContent =
+      `Showing ${list.length} of ${PRODUCTS.length} products`;
+
+    if (list.length === 0) {
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
+        <div class="ico">🔍</div><h3>No products found</h3>
+        <p>Try adjusting your search or filters.</p></div>`;
+      return;
+    }
+    grid.innerHTML = list.map(renderProductCard).join('');
+    updateHeaderBadges();
+  }
+
+  renderShop();
+})();
+</script>
+</body>
+</html>

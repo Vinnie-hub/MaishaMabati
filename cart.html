@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart — Maisha Mabati</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-main">
+      <button class="menu-toggle">☰</button>
+      <a href="index.html" class="brand"><div class="logo">M</div><div>Maisha Mabati<small>Roofing & Building</small></div></a>
+      <form class="search-bar"><input type="search" placeholder="Search products..."><button>🔍</button></form>
+      <div class="header-icons">
+        <a href="compare.html" class="icon-btn"><span class="icon">⇄</span><span class="badge" data-badge="compare" style="display:none">0</span></a>
+        <a href="wishlist.html" class="icon-btn"><span class="icon">♡</span><span class="badge" data-badge="wishlist" style="display:none">0</span></a>
+        <a href="cart.html" class="icon-btn"><span class="icon">🛒</span><span class="badge" data-badge="cart" style="display:none">0</span></a>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav"><div class="container"><ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul></div></nav>
+</header>
+
+<div class="overlay"></div>
+<aside class="mobile-menu">
+  <h3>Menu</h3>
+  <a href="index.html">Home</a><a href="shop.html">Shop</a>
+  <a href="wishlist.html">Wishlist</a><a href="compare.html">Compare</a>
+  <a href="cart.html">Cart</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</aside>
+
+<section class="container">
+  <h1 style="margin:40px 0 20px;">Shopping Cart</h1>
+  <div class="cart-layout">
+    <div class="cart-items" id="cart-items"></div>
+    <aside class="cart-summary" id="cart-summary"></aside>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border:none;padding-top:40px;">
+      <div>© 2026 Maisha Mabati</div><div>Built with ❤️ in Kenya</div>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/254785002606" target="_blank">💬</a>
+
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/compare.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
