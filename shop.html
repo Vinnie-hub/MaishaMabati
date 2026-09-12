@@ -59,8 +59,10 @@
 <script src="js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('header-slot').innerHTML = renderHeader('shop');
-  document.getElementById('footer-slot').innerHTML = renderFooter();
+  const headerSlot = document.getElementById('header-slot');
+  const footerSlot = document.getElementById('footer-slot');
+  if (headerSlot) headerSlot.innerHTML = renderHeader('shop');
+  if (footerSlot) footerSlot.innerHTML = renderFooter();
   initMobileMenu();
 
   document.querySelectorAll('[data-icon-h]').forEach(el => {
@@ -77,59 +79,100 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const catWrap = document.getElementById('cat-filters');
-  catWrap.innerHTML =
-    `<label><input type="checkbox" value="" ${!state.category ? 'checked' : ''}> All</label>` +
-    CONFIG.CATEGORIES.map(c =>
-      `<label><input type="checkbox" value="${c}" ${state.category === c ? 'checked' : ''}> ${c}</label>`
-    ).join('');
+  if (catWrap) {
+    catWrap.innerHTML =
+      `<label><input type="checkbox" value="" ${!state.category ? 'checked' : ''}> All</label>` +
+      CONFIG.CATEGORIES.map(c =>
+        `<label><input type="checkbox" value="${c}" ${state.category === c ? 'checked' : ''}> ${c}</label>`
+      ).join('');
 
+    catWrap.addEventListener('change', e => {
+      if (e.target.value === '') {
+        catWrap.querySelectorAll('input').forEach(i => i.checked = false);
+        e.target.checked = true;
+        state.category = '';
+      } else {
+        const allBox = catWrap.querySelector('input[value=""]');
+        if (allBox) allBox.checked = false;
+        catWrap.querySelectorAll('input').forEach(i => { if (i !== e.target) i.checked = false; });
+        state.category = e.target.value;
+      }
+      renderShop();
+    });
+  }
+
+  const priceRange = document.getElementById('price-range');
+  if (priceRange) {
+    priceRange.addEventListener('input', e => {
+      state.maxPrice = Number(e.target.value);
+      const pv = document.getElementById('price-value');
+      if (pv) pv.textContent = 'KSh ' + state.maxPrice.toLocaleString();
+      renderShop();
+    });
+  }
+
+  const inStockEl = document.getElementById('filter-instock');
+  if (inStockEl) {
+    inStockEl.addEventListener('change', e => {
+      state.inStock = e.target.checked;
+      renderShop();
+    });
+  }
+
+  const sortSelect = document.getElementById('sort-select');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', e => {
+      state.sort = e.target.value;
+      renderShop();
+    });
+  }
+
+  const clearBtn = document.getElementById('clear-filters');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      state = { search: '', category: '', maxPrice: 10000, inStock: false, sort: 'default' };
+      if (priceRange) priceRange.value = 10000;
+      const pv = document.getElementById('price-value');
+      if (pv) pv.textContent = 'KSh 10,000';
+      if (inStockEl) inStockEl.checked = false;
+      if (sortSelect) sortSelect.value = 'default';
+      if (catWrap) {
+        catWrap.querySelectorAll('input').forEach(i => i.checked = i.value === '');
+      }
+      renderShop();
+    });
+  }
+
+  const headerSearch = document.querySelector('.search-bar');
   const shopSearchEl = document.getElementById('shop-search');
-if (shopSearchEl) shopSearchEl.value = state.search;
 
-  catWrap.addEventListener('change', e => {
-    if (e.target.value === '') {
-      catWrap.querySelectorAll('input').forEach(i => i.checked = false);
-      e.target.checked = true;
-      state.category = '';
-    } else {
-      catWrap.querySelector('input[value=""]').checked = false;
-      catWrap.querySelectorAll('input').forEach(i => { if (i !== e.target) i.checked = false; });
-      state.category = e.target.value;
-    }
-    renderShop();
-  });
+  let shopSearchInput = shopSearchEl;
+  if (!shopSearchInput && headerSearch) {
+    shopSearchInput = headerSearch.querySelector('input[type="search"]');
+    if (shopSearchInput) shopSearchInput.id = 'shop-search';
+  }
 
-  document.getElementById('price-range').addEventListener('input', e => {
-    state.maxPrice = Number(e.target.value);
-    document.getElementById('price-value').textContent = 'KSh ' + state.maxPrice.toLocaleString();
-    renderShop();
-  });
-  document.getElementById('filter-instock').addEventListener('change', e => { state.inStock = e.target.checked; renderShop(); });
-  document.getElementById('sort-select').addEventListener('change', e => { state.sort = e.target.value; renderShop(); });
+  if (shopSearchInput) {
+    shopSearchInput.value = state.search;
+    shopSearchInput.addEventListener('input', e => {
+      state.search = e.target.value.trim();
+      renderShop();
+    });
+  }
 
-  document.getElementById('clear-filters').addEventListener('click', () => {
-    state = { search: '', category: '', maxPrice: 10000, inStock: false, sort: 'default' };
-    document.getElementById('price-range').value = 10000;
-    document.getElementById('price-value').textContent = 'KSh 10,000';
-    document.getElementById('filter-instock').checked = false;
-    document.getElementById('shop-search').value = '';
-    document.getElementById('sort-select').value = 'default';
-    catWrap.querySelectorAll('input').forEach(i => i.checked = i.value === '');
-    renderShop();
-  });
-
-  document.querySelector('.search-bar').addEventListener('submit', e => {
-    e.preventDefault();
-    state.search = document.getElementById('shop-search').value.trim();
-    renderShop();
-  });
-  document.getElementById('shop-search').addEventListener('input', e => {
-    state.search = e.target.value.trim();
-    renderShop();
-  });
+  if (headerSearch) {
+    headerSearch.addEventListener('submit', e => {
+      e.preventDefault();
+      if (shopSearchInput) {
+        state.search = shopSearchInput.value.trim();
+      }
+      renderShop();
+    });
+  }
 
   function renderShop() {
     let list = PRODUCTS.slice();
+
     if (state.search) {
       const q = state.search.toLowerCase();
       list = list.filter(p =>
@@ -139,30 +182,40 @@ if (shopSearchEl) shopSearchEl.value = state.search;
         p.keywords.some(k => k.toLowerCase().includes(q))
       );
     }
+
     if (state.category) list = list.filter(p => p.category === state.category);
     list = list.filter(p => (p.salePrice || p.price) <= state.maxPrice);
     if (state.inStock) list = list.filter(p => p.stock);
 
     switch (state.sort) {
-      case 'price-asc': list.sort((a,b) => (a.salePrice||a.price) - (b.salePrice||b.price)); break;
+      case 'price-asc':  list.sort((a,b) => (a.salePrice||a.price) - (b.salePrice||b.price)); break;
       case 'price-desc': list.sort((a,b) => (b.salePrice||b.price) - (a.salePrice||a.price)); break;
-      case 'name-asc': list.sort((a,b) => a.name.localeCompare(b.name)); break;
-      case 'name-desc': list.sort((a,b) => b.name.localeCompare(a.name)); break;
+      case 'name-asc':   list.sort((a,b) => a.name.localeCompare(b.name)); break;
+      case 'name-desc':  list.sort((a,b) => b.name.localeCompare(a.name)); break;
     }
 
     const grid = document.getElementById('shop-grid');
-    document.getElementById('results-count').textContent = `Showing ${list.length} of ${PRODUCTS.length} products`;
+    const counter = document.getElementById('results-count');
+
+    if (counter) {
+      counter.textContent = `Showing ${list.length} of ${PRODUCTS.length} products`;
+    }
+
+    if (!grid) return;
 
     if (list.length === 0) {
       grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
         <div class="ico">${icon('search', 50)}</div>
         <h3>No products found</h3>
-        <p>Try adjusting your search or filters.</p></div>`;
+        <p>Try adjusting your search or filters.</p>
+      </div>`;
       return;
     }
+
     grid.innerHTML = list.map(renderProductCard).join('');
     updateHeaderBadges();
   }
+
   renderShop();
 });
 </script>

@@ -88,7 +88,7 @@ function renderProductCard(p) {
   return `
     <article class="product-card" data-id="${p.id}">
       <div class="product-thumb">
-        <a href="product.html?id=${p.id}">
+        <a href="products.html?id=${p.id}">
           <img src="${p.image}" alt="${p.name}" loading="lazy">
         </a>
         <div class="product-tags">
@@ -99,12 +99,12 @@ function renderProductCard(p) {
         <div class="product-quick-actions">
           <button class="quick-btn ${inWish ? "active" : ""}" data-action="wishlist" data-id="${p.id}" title="Wishlist">${icon(inWish ? "heartFill" : "heart", 15)}</button>
           <button class="quick-btn ${inCmp ? "active" : ""}" data-action="compare" data-id="${p.id}" title="Compare">${icon("compare", 15)}</button>
-          <a class="quick-btn" href="product.html?id=${p.id}" title="View">${icon("eye", 15)}</a>
+          <a class="quick-btn" href="products.html?id=${p.id}" title="View">${icon("eye", 15)}</a>
         </div>
       </div>
       <div class="product-body">
         <span class="product-cat">${p.category}</span>
-        <h3 class="product-title"><a href="product.html?id=${p.id}">${p.name}</a></h3>
+        <h3 class="product-title"><a href="products.html?id=${p.id}">${p.name}</a></h3>
         <div class="product-price">
           ${
             hasSale
