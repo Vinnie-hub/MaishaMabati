@@ -1,7 +1,6 @@
 /* =========================================================
    WISHLIST — localStorage
    ========================================================= */
-
 function getWishlist() {
   try {
     return JSON.parse(localStorage.getItem(CONFIG.STORAGE.WISHLIST)) || [];
@@ -30,12 +29,10 @@ function toggleWishlist(id) {
   }
   saveWishlist(list);
 }
-
 function removeFromWishlist(id) {
   saveWishlist(getWishlist().filter((x) => x !== Number(id)));
 }
 
-/* ---------- WISHLIST PAGE ---------- */
 function renderWishlistPage() {
   const grid = document.getElementById("wishlist-grid");
   if (!grid) return;
@@ -44,7 +41,7 @@ function renderWishlistPage() {
   if (list.length === 0) {
     grid.outerHTML = `
       <div class="empty-state" style="grid-column:1/-1;">
-        <div class="ico">♡</div>
+        <div class="ico">${icon("heart", 60)}</div>
         <h3>Your wishlist is empty</h3>
         <p>Save products you love and find them here later.</p>
         <a href="shop.html" class="btn btn-primary">Browse Products</a>
@@ -61,7 +58,7 @@ function renderWishlistPage() {
       .join("") +
     `
     <div style="grid-column:1/-1;text-align:center;margin-top:20px;">
-      <button class="btn btn-primary" id="wish-to-cart">Move All to Cart</button>
+      <button class="btn btn-primary" id="wish-to-cart">${icon("cart", 16)} Move All to Cart</button>
     </div>`;
 
   document.getElementById("wish-to-cart")?.addEventListener("click", () => {

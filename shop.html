@@ -9,70 +9,13 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="topbar">
-    <div class="container">
-      <div>📞 <a href="tel:+254785002606">+254 785 002 606</a> &nbsp;|&nbsp; ✉️ <a href="mailto:info@maishamabati.co.ke">info@maishamabati.co.ke</a></div>
-      <div>🚚 Countrywide delivery · Same-day in Nairobi</div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="header-main">
-      <button class="menu-toggle" aria-label="Menu">☰</button>
-      <a href="index.html" class="brand">
-        <img src="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789197790/Maisha_mabati_logo_lam5sr.png" alt="Maisha Mabati">
-      </a>
-      <form class="search-bar" role="search">
-        <input type="search" id="shop-search" placeholder="Search products..." aria-label="Search">
-        <button type="submit" aria-label="Search">🔍</button>
-      </form>
-      <div class="header-icons">
-        <a href="compare.html" class="icon-btn" title="Compare">
-          <span class="icon">⇄</span><span class="label">Compare</span>
-          <span class="badge" data-badge="compare" style="display:none">0</span>
-        </a>
-        <a href="wishlist.html" class="icon-btn" title="Wishlist">
-          <span class="icon">♡</span><span class="label">Wishlist</span>
-          <span class="badge" data-badge="wishlist" style="display:none">0</span>
-        </a>
-        <a href="cart.html" class="icon-btn" title="Cart">
-          <span class="icon">🛒</span><span class="label">Cart</span>
-          <span class="badge" data-badge="cart" style="display:none">0</span>
-        </a>
-      </div>
-    </div>
-  </div>
-  <nav class="main-nav">
-    <div class="container">
-      <a href="shop.html" class="all-cats">☰ All Categories</a>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html" class="active">Shop</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <a href="contact.html" class="nav-help">ℹ️ Help Center</a>
-    </div>
-  </nav>
-</header>
-
-<div class="overlay"></div>
-<aside class="mobile-menu">
-  <h3>Menu</h3>
-  <a href="index.html">Home</a>
-  <a href="shop.html">Shop</a>
-  <a href="wishlist.html">Wishlist</a>
-  <a href="compare.html">Compare</a>
-  <a href="cart.html">Cart</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
-</aside>
+<div id="header-slot"></div>
 
 <section class="container">
   <div class="shop-layout">
     <aside class="filters">
       <div class="filter-group">
-        <h4>Category</h4>
+        <h4 data-icon-h="filter">Category</h4>
         <div id="cat-filters"></div>
       </div>
       <div class="filter-group">
@@ -105,35 +48,25 @@
   </div>
 </section>
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-bottom" style="border:none;">
-      <div>© 2026 Maisha Mabati. All rights reserved.</div>
-      <div>Built with ❤️ in Kenya</div>
-    </div>
-  </div>
-</footer>
-
-<div class="mobile-bottom">
-  <ul>
-    <li><a href="shop.html"><span class="icon">🏬</span>Store</a></li>
-    <li><a href="shop.html"><span class="icon">🔍</span>Search</a></li>
-    <li><a href="wishlist.html"><span class="icon">♡</span>Wishlist</a></li>
-    <li><a href="cart.html"><span class="icon">🛒</span>Cart</a></li>
-    <li><a href="shop.html"><span class="icon">☰</span>Categories</a></li>
-  </ul>
-</div>
-
-<a class="wa-float" href="https://wa.me/254785002606" target="_blank" rel="noopener">💬</a>
+<div id="footer-slot"></div>
 
 <script src="js/config.js"></script>
+<script src="js/icons.js"></script>
 <script src="js/products.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/wishlist.js"></script>
 <script src="js/compare.js"></script>
 <script src="js/main.js"></script>
 <script>
-(function () {
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('header-slot').innerHTML = renderHeader('shop');
+  document.getElementById('footer-slot').innerHTML = renderFooter();
+  initMobileMenu();
+
+  document.querySelectorAll('[data-icon-h]').forEach(el => {
+    el.innerHTML = icon(el.dataset.iconH, 14) + ' ' + el.textContent;
+  });
+
   const params = new URLSearchParams(location.search);
   let state = {
     search: params.get('search') || '',
@@ -150,7 +83,8 @@
       `<label><input type="checkbox" value="${c}" ${state.category === c ? 'checked' : ''}> ${c}</label>`
     ).join('');
 
-  document.getElementById('shop-search').value = state.search;
+  const shopSearchEl = document.getElementById('shop-search');
+if (shopSearchEl) shopSearchEl.value = state.search;
 
   catWrap.addEventListener('change', e => {
     if (e.target.value === '') {
@@ -170,16 +104,8 @@
     document.getElementById('price-value').textContent = 'KSh ' + state.maxPrice.toLocaleString();
     renderShop();
   });
-
-  document.getElementById('filter-instock').addEventListener('change', e => {
-    state.inStock = e.target.checked;
-    renderShop();
-  });
-
-  document.getElementById('sort-select').addEventListener('change', e => {
-    state.sort = e.target.value;
-    renderShop();
-  });
+  document.getElementById('filter-instock').addEventListener('change', e => { state.inStock = e.target.checked; renderShop(); });
+  document.getElementById('sort-select').addEventListener('change', e => { state.sort = e.target.value; renderShop(); });
 
   document.getElementById('clear-filters').addEventListener('click', () => {
     state = { search: '', category: '', maxPrice: 10000, inStock: false, sort: 'default' };
@@ -204,7 +130,6 @@
 
   function renderShop() {
     let list = PRODUCTS.slice();
-
     if (state.search) {
       const q = state.search.toLowerCase();
       list = list.filter(p =>
@@ -226,21 +151,20 @@
     }
 
     const grid = document.getElementById('shop-grid');
-    document.getElementById('results-count').textContent =
-      `Showing ${list.length} of ${PRODUCTS.length} products`;
+    document.getElementById('results-count').textContent = `Showing ${list.length} of ${PRODUCTS.length} products`;
 
     if (list.length === 0) {
       grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
-        <div class="ico">🔍</div><h3>No products found</h3>
+        <div class="ico">${icon('search', 50)}</div>
+        <h3>No products found</h3>
         <p>Try adjusting your search or filters.</p></div>`;
       return;
     }
     grid.innerHTML = list.map(renderProductCard).join('');
     updateHeaderBadges();
   }
-
   renderShop();
-})();
+});
 </script>
 </body>
 </html>

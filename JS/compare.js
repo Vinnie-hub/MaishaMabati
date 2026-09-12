@@ -23,14 +23,14 @@ function toggleCompare(id) {
   const idx = list.indexOf(id);
   if (idx > -1) {
     list.splice(idx, 1);
-    showToast("Removed from compare");
+    showToast("Removed from compare", "compare");
   } else {
     if (list.length >= 4) {
-      showToast("You can compare up to 4 products");
+      showToast("You can compare up to 4 products", "info");
       return;
     }
     list.push(id);
-    showToast("Added to compare");
+    showToast("Added to compare", "compare");
   }
   saveCompare(list);
 }
@@ -48,7 +48,7 @@ function renderComparePage() {
   if (list.length === 0) {
     wrap.innerHTML = `
       <div class="empty-state">
-        <div class="ico">⇄</div>
+        <div class="ico">${Icon("compare")}</div>
         <h3>No products to compare</h3>
         <p>Add up to 4 products to compare their specs side by side.</p>
         <a href="shop.html" class="btn btn-primary">Browse Products</a>
@@ -73,28 +73,29 @@ function renderComparePage() {
       label: "Stock",
       render: (p) =>
         p.stock
-          ? '<span style="color:#16a34a;font-weight:700;">In Stock</span>'
+          ? '<span style="color:#17874a;font-weight:700;">In Stock</span>'
           : '<span style="color:var(--red);font-weight:700;">Out of Stock</span>',
     },
     {
       label: "Colors",
-      render: (p) => (p.colors.length ? p.colors.join(", ") : "—"),
+      render: (p) => (p.colors.length ? p.colors.join(", ") : "\u2014"),
     },
     {
       label: "Variants",
-      render: (p) => (p.variants.length ? p.variants.join(", ") : "—"),
+      render: (p) => (p.variants.length ? p.variants.join(", ") : "\u2014"),
     },
     { label: "Description", render: (p) => p.description },
     {
       label: "",
       render: (p) =>
-        `<button class="btn btn-primary btn-sm" data-action="add-cart" data-id="${p.id}">Add to Cart</button>`,
+        `<button class="btn btn-primary btn-sm" data-action="add-cart" data-id="${p.id}">${Icon("cart")} Add to Cart</button>`,
     },
   ];
 
-  let html = '<table class="compare-table"><thead><tr><th>Feature</th>';
+  let html =
+    '<div class="compare-scroll"><table class="compare-table"><thead><tr><th>Feature</th>';
   list.forEach((p) => {
-    html += `<th>${p.name} <span class="remove-col" data-remove="${p.id}">✕</span></th>`;
+    html += `<th>${p.name} <span class="remove-col" data-remove="${p.id}" title="Remove">${Icon("close")}</span></th>`;
   });
   html += "</tr></thead><tbody>";
 
@@ -106,7 +107,7 @@ function renderComparePage() {
     html += "</tr>";
   });
 
-  html += "</tbody></table>";
+  html += "</tbody></table></div>";
   wrap.innerHTML = html;
 
   wrap.querySelectorAll("[data-remove]").forEach((el) => {

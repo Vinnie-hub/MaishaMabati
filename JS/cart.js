@@ -37,7 +37,6 @@ function updateCartQty(key, qty) {
 function removeFromCart(key) {
   saveCart(getCart().filter((i) => i.key !== key));
 }
-
 function clearCart() {
   saveCart([]);
 }
@@ -50,23 +49,20 @@ function getCartTotal() {
     return sum + price * i.qty;
   }, 0);
 }
-
 function getCartCount() {
   return getCart().reduce((s, i) => s + i.qty, 0);
 }
 
-/* ---------- CART PAGE ---------- */
 function renderCartPage() {
   const wrap = document.getElementById("cart-items");
   const summary = document.getElementById("cart-summary");
   if (!wrap) return;
-
   const cart = getCart();
 
   if (cart.length === 0) {
     wrap.outerHTML = `
       <div class="empty-state" style="grid-column:1/-1;">
-        <div class="ico">🛒</div>
+        <div class="ico">${icon("cart", 60)}</div>
         <h3>Your cart is empty</h3>
         <p>Browse our products and add items to your cart.</p>
         <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
@@ -93,11 +89,11 @@ function renderCartPage() {
           <div class="price">${formatMoney(price)}</div>
         </div>
         <div class="qty-selector">
-          <button data-cart-action="dec" data-key="${item.key}">−</button>
+          <button data-cart-action="dec" data-key="${item.key}">${icon("minus", 14)}</button>
           <input type="text" value="${item.qty}" readonly>
-          <button data-cart-action="inc" data-key="${item.key}">+</button>
+          <button data-cart-action="inc" data-key="${item.key}">${icon("plus", 14)}</button>
         </div>
-        <button class="cart-item-remove" data-cart-action="remove" data-key="${item.key}">✕ Remove</button>
+        <button class="cart-item-remove" data-cart-action="remove" data-key="${item.key}">${icon("trash", 14)} Remove</button>
       </div>`;
     })
     .join("");
@@ -109,7 +105,7 @@ function renderCartPage() {
       <div class="summary-row"><span>Subtotal</span><span>${formatMoney(subtotal)}</span></div>
       <div class="summary-row"><span>Delivery</span><span>Confirmed on WhatsApp</span></div>
       <div class="summary-row total"><span>Total</span><span>${formatMoney(subtotal)}</span></div>
-      <button class="btn btn-green btn-block" id="checkout-wa">💬 Order via WhatsApp</button>
+      <button class="btn btn-green btn-block" id="checkout-wa">${icon("whatsapp", 16)} Order via WhatsApp</button>
       <button class="btn btn-ghost btn-block" id="clear-cart" style="margin-top:8px;">Clear Cart</button>
       <a href="shop.html" class="btn btn-outline btn-block" style="margin-top:8px;">Continue Shopping</a>
     `;
@@ -138,17 +134,14 @@ function renderCartPage() {
   });
 }
 
-/* ---------- WHATSAPP CHECKOUT ---------- */
 function checkoutWhatsApp() {
   const cart = getCart();
   if (cart.length === 0) {
     showToast("Your cart is empty");
     return;
   }
-
   let msg = "Hello, I would like to place an order:\n\n";
   let total = 0;
-
   cart.forEach((item, i) => {
     const p = getProductById(item.id);
     if (!p) return;
@@ -162,26 +155,20 @@ function checkoutWhatsApp() {
     msg += `   Price: ${CONFIG.CURRENCY} ${price} each\n`;
     msg += `   Subtotal: ${CONFIG.CURRENCY} ${line}\n\n`;
   });
-
   msg += `Total: ${CONFIG.CURRENCY} ${total}\n\n`;
-  msg += `Customer Name: \n`;
-  msg += `Phone: \n`;
-  msg += `Delivery Location: \n\n`;
+  msg += `Customer Name: \nPhone: \nDelivery Location: \n\n`;
   msg += `Please confirm availability and delivery details.`;
-
   window.open(
     `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,
     "_blank",
   );
 }
 
-/* ---------- SINGLE PRODUCT WHATSAPP ---------- */
 function orderSingleWhatsApp(id, qty = 1, color = null, variant = null) {
   const p = getProductById(id);
   if (!p) return;
   const price = p.salePrice && p.salePrice < p.price ? p.salePrice : p.price;
   const total = price * qty;
-
   let msg = "Hello, I would like to place an order:\n\n";
   msg += `Product: ${p.name}\n`;
   if (color) msg += `Color: ${color}\n`;
@@ -189,11 +176,8 @@ function orderSingleWhatsApp(id, qty = 1, color = null, variant = null) {
   msg += `Quantity: ${qty}\n`;
   msg += `Price: ${CONFIG.CURRENCY} ${price}\n\n`;
   msg += `Total: ${CONFIG.CURRENCY} ${total}\n\n`;
-  msg += `Customer Name: \n`;
-  msg += `Phone: \n`;
-  msg += `Delivery Location: \n\n`;
+  msg += `Customer Name: \nPhone: \nDelivery Location: \n\n`;
   msg += `Please confirm availability and delivery details.`;
-
   window.open(
     `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,
     "_blank",

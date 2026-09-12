@@ -9,55 +9,7 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="topbar">
-    <div class="container">
-      <div>📞 <a href="tel:+254785002606">+254 785 002 606</a></div>
-      <div>🚚 Countrywide delivery</div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="header-main">
-      <button class="menu-toggle" aria-label="Menu">☰</button>
-      <a href="index.html" class="brand">
-        <img src="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789197790/Maisha_mabati_logo_lam5sr.png" alt="Maisha Mabati">
-      </a>
-      <form class="search-bar" role="search">
-        <input type="search" placeholder="Search products..." aria-label="Search">
-        <button type="submit" aria-label="Search">🔍</button>
-      </form>
-      <div class="header-icons">
-        <a href="compare.html" class="icon-btn"><span class="icon">⇄</span><span class="badge" data-badge="compare" style="display:none">0</span></a>
-        <a href="wishlist.html" class="icon-btn"><span class="icon">♡</span><span class="badge" data-badge="wishlist" style="display:none">0</span></a>
-        <a href="cart.html" class="icon-btn"><span class="icon">🛒</span><span class="badge" data-badge="cart" style="display:none">0</span></a>
-      </div>
-    </div>
-  </div>
-  <nav class="main-nav">
-    <div class="container">
-      <a href="shop.html" class="all-cats">☰ All Categories</a>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-      </ul>
-      <a href="contact.html" class="nav-help">ℹ️ Help Center</a>
-    </div>
-  </nav>
-</header>
-
-<div class="overlay"></div>
-<aside class="mobile-menu">
-  <h3>Menu</h3>
-  <a href="index.html">Home</a>
-  <a href="shop.html">Shop</a>
-  <a href="wishlist.html">Wishlist</a>
-  <a href="compare.html">Compare</a>
-  <a href="cart.html">Cart</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
-</aside>
+<div id="header-slot"></div>
 
 <section class="page-hero">
   <div class="container">
@@ -70,23 +22,23 @@
   <div class="contact-grid">
     <div class="contact-info-card">
       <div class="contact-item">
-        <div class="ico">📞</div>
+        <div class="ico" data-icon="phone"></div>
         <div><h4>Phone</h4><p><a href="tel:+254785002606">+254 785 002 606</a></p></div>
       </div>
       <div class="contact-item">
-        <div class="ico">💬</div>
+        <div class="ico" data-icon="whatsapp"></div>
         <div><h4>WhatsApp</h4><p><a href="https://wa.me/254785002606" target="_blank" rel="noopener">Chat with us</a></p></div>
       </div>
       <div class="contact-item">
-        <div class="ico">✉️</div>
+        <div class="ico" data-icon="mail"></div>
         <div><h4>Email</h4><p><a href="mailto:info@maishamabati.co.ke">info@maishamabati.co.ke</a></p></div>
       </div>
       <div class="contact-item">
-        <div class="ico">📍</div>
+        <div class="ico" data-icon="pin"></div>
         <div><h4>Location</h4><p>Ruiru, Kiambu County, Kenya</p></div>
       </div>
       <div class="contact-item">
-        <div class="ico">🕒</div>
+        <div class="ico" data-icon="clock"></div>
         <div><h4>Opening Hours</h4><p>Mon–Fri: 9:00–20:00<br>Sat: 11:00–15:00</p></div>
       </div>
     </div>
@@ -97,44 +49,38 @@
         <div class="form-group"><label>Your Name</label><input name="name" required></div>
         <div class="form-group"><label>Phone</label><input name="phone" required></div>
         <div class="form-group"><label>Message</label><textarea name="message" rows="5" required></textarea></div>
-        <button type="submit" class="btn btn-green btn-block">💬 Send via WhatsApp</button>
+        <button type="submit" class="btn btn-green btn-block" id="contact-submit"></button>
       </form>
     </div>
   </div>
 </section>
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-bottom" style="border:none;">
-      <div>© 2026 Maisha Mabati</div><div>Built with ❤️ in Kenya</div>
-    </div>
-  </div>
-</footer>
-
-<div class="mobile-bottom">
-  <ul>
-    <li><a href="shop.html"><span class="icon">🏬</span>Store</a></li>
-    <li><a href="shop.html"><span class="icon">🔍</span>Search</a></li>
-    <li><a href="wishlist.html"><span class="icon">♡</span>Wishlist</a></li>
-    <li><a href="cart.html"><span class="icon">🛒</span>Cart</a></li>
-    <li><a href="shop.html"><span class="icon">☰</span>Categories</a></li>
-  </ul>
-</div>
-
-<a class="wa-float" href="https://wa.me/254785002606" target="_blank" rel="noopener">💬</a>
+<div id="footer-slot"></div>
 
 <script src="js/config.js"></script>
+<script src="js/icons.js"></script>
 <script src="js/products.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/wishlist.js"></script>
 <script src="js/compare.js"></script>
 <script src="js/main.js"></script>
 <script>
-document.getElementById('contact-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const f = e.target;
-  const msg = `Name: ${f.name.value}\nPhone: ${f.phone.value}\nMessage: ${f.message.value}`;
-  window.open(`https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('header-slot').innerHTML = renderHeader('contact');
+  document.getElementById('footer-slot').innerHTML = renderFooter();
+  initMobileMenu();
+
+  document.querySelectorAll('[data-icon]').forEach(el => el.innerHTML = icon(el.dataset.icon, 22));
+  document.getElementById('contact-submit').innerHTML = icon('whatsapp', 18) + ' Send via WhatsApp';
+
+  document.getElementById('contact-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target;
+    const msg = `Name: ${f.name.value}\nPhone: ${f.phone.value}\nMessage: ${f.message.value}`;
+    window.open(`https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  });
+
+  updateHeaderBadges();
 });
 </script>
 </body>
