@@ -4,28 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About — Maisha Mabati</title>
+<link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789198256/maisha_mabti_favicon_mxerej.png">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header class="site-header">
+  <div class="topbar">
+    <div class="container">
+      <div>📞 <a href="tel:+254785002606">+254 785 002 606</a></div>
+      <div>🚚 Countrywide delivery</div>
+    </div>
+  </div>
   <div class="container">
     <div class="header-main">
-      <button class="menu-toggle">☰</button>
-      <a href="index.html" class="brand"><div class="logo">M</div><div>Maisha Mabati<small>Roofing & Building</small></div></a>
-      <form class="search-bar"><input type="search" placeholder="Search products..."><button>🔍</button></form>
+      <button class="menu-toggle" aria-label="Menu">☰</button>
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789197790/Maisha_mabati_logo_lam5sr.png" alt="Maisha Mabati">
+      </a>
+      <form class="search-bar" role="search">
+        <input type="search" placeholder="Search products..." aria-label="Search">
+        <button type="submit" aria-label="Search">🔍</button>
+      </form>
       <div class="header-icons">
+        <a href="compare.html" class="icon-btn"><span class="icon">⇄</span><span class="badge" data-badge="compare" style="display:none">0</span></a>
+        <a href="wishlist.html" class="icon-btn"><span class="icon">♡</span><span class="badge" data-badge="wishlist" style="display:none">0</span></a>
         <a href="cart.html" class="icon-btn"><span class="icon">🛒</span><span class="badge" data-badge="cart" style="display:none">0</span></a>
       </div>
     </div>
   </div>
-  <nav class="main-nav"><div class="container"><ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="shop.html">Shop</a></li>
-    <li><a href="about.html" class="active">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul></div></nav>
+  <nav class="main-nav">
+    <div class="container">
+      <a href="shop.html" class="all-cats">☰ All Categories</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="nav-help">ℹ️ Help Center</a>
+    </div>
+  </nav>
 </header>
+
+<div class="overlay"></div>
+<aside class="mobile-menu">
+  <h3>Menu</h3>
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop</a>
+  <a href="wishlist.html">Wishlist</a>
+  <a href="compare.html">Compare</a>
+  <a href="cart.html">Cart</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</aside>
 
 <section class="page-hero">
   <div class="container">
@@ -38,7 +70,7 @@
   <div class="about-grid">
     <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=85" alt="Construction" loading="lazy">
     <div>
-      <div class="eyebrow" style="color:var(--accent-dark);font-weight:700;letter-spacing:2px;font-size:13px;">OUR STORY</div>
+      <div class="eyebrow" style="color:var(--primary);font-weight:700;letter-spacing:2px;font-size:13px;">OUR STORY</div>
       <h2>Building Kenya Since 2009</h2>
       <p>Maisha Mabati was established in 2009 to meet the growing requirements for quality roofing at affordable pricing. It was the vision and commitment of Mr Narendra Raval EBS (Guru) to supply building and construction materials at affordable costs to the local Kenyan population.</p>
       <p>Our products are largely focused on being durable, functional, strong and cost-effective — enabling Kenyans around the country to build better standard homes. We manufacture using state-of-the-art technology at our modern alu-zinc plant in Ruiru.</p>
@@ -59,13 +91,23 @@
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-bottom" style="border:none;padding-top:40px;">
+    <div class="footer-bottom" style="border:none;">
       <div>© 2026 Maisha Mabati</div><div>Built with ❤️ in Kenya</div>
     </div>
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/254785002606" target="_blank">💬</a>
+<div class="mobile-bottom">
+  <ul>
+    <li><a href="shop.html"><span class="icon">🏬</span>Store</a></li>
+    <li><a href="shop.html"><span class="icon">🔍</span>Search</a></li>
+    <li><a href="wishlist.html"><span class="icon">♡</span>Wishlist</a></li>
+    <li><a href="cart.html"><span class="icon">🛒</span>Cart</a></li>
+    <li><a href="shop.html"><span class="icon">☰</span>Categories</a></li>
+  </ul>
+</div>
+
+<a class="wa-float" href="https://wa.me/254785002606" target="_blank" rel="noopener">💬</a>
 
 <script src="js/config.js"></script>
 <script src="js/products.js"></script>

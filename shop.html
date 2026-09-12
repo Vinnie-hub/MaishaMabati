@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shop — Maisha Mabati</title>
+<link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789198256/maisha_mabti_favicon_mxerej.png">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,41 +12,64 @@
 <header class="site-header">
   <div class="topbar">
     <div class="container">
-      <div>📞 <a href="tel:+254785002606">+254 785 002 606</a></div>
-      <div>🚚 Countrywide delivery</div>
+      <div>📞 <a href="tel:+254785002606">+254 785 002 606</a> &nbsp;|&nbsp; ✉️ <a href="mailto:info@maishamabati.co.ke">info@maishamabati.co.ke</a></div>
+      <div>🚚 Countrywide delivery · Same-day in Nairobi</div>
     </div>
   </div>
   <div class="container">
     <div class="header-main">
-      <button class="menu-toggle">☰</button>
-      <a href="index.html" class="brand"><div class="logo">M</div><div>Maisha Mabati<small>Roofing & Building</small></div></a>
-      <form class="search-bar"><input type="search" id="shop-search" placeholder="Search products..."><button>🔍</button></form>
+      <button class="menu-toggle" aria-label="Menu">☰</button>
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789197790/Maisha_mabati_logo_lam5sr.png" alt="Maisha Mabati">
+      </a>
+      <form class="search-bar" role="search">
+        <input type="search" id="shop-search" placeholder="Search products..." aria-label="Search">
+        <button type="submit" aria-label="Search">🔍</button>
+      </form>
       <div class="header-icons">
-        <a href="compare.html" class="icon-btn"><span class="icon">⇄</span><span class="badge" data-badge="compare" style="display:none">0</span></a>
-        <a href="wishlist.html" class="icon-btn"><span class="icon">♡</span><span class="badge" data-badge="wishlist" style="display:none">0</span></a>
-        <a href="cart.html" class="icon-btn"><span class="icon">🛒</span><span class="badge" data-badge="cart" style="display:none">0</span></a>
+        <a href="compare.html" class="icon-btn" title="Compare">
+          <span class="icon">⇄</span><span class="label">Compare</span>
+          <span class="badge" data-badge="compare" style="display:none">0</span>
+        </a>
+        <a href="wishlist.html" class="icon-btn" title="Wishlist">
+          <span class="icon">♡</span><span class="label">Wishlist</span>
+          <span class="badge" data-badge="wishlist" style="display:none">0</span>
+        </a>
+        <a href="cart.html" class="icon-btn" title="Cart">
+          <span class="icon">🛒</span><span class="label">Cart</span>
+          <span class="badge" data-badge="cart" style="display:none">0</span>
+        </a>
       </div>
     </div>
   </div>
-  <nav class="main-nav"><div class="container"><ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="shop.html" class="active">Shop</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul></div></nav>
+  <nav class="main-nav">
+    <div class="container">
+      <a href="shop.html" class="all-cats">☰ All Categories</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="nav-help">ℹ️ Help Center</a>
+    </div>
+  </nav>
 </header>
 
 <div class="overlay"></div>
 <aside class="mobile-menu">
   <h3>Menu</h3>
-  <a href="index.html">Home</a><a href="shop.html">Shop</a>
-  <a href="wishlist.html">Wishlist</a><a href="compare.html">Compare</a>
-  <a href="cart.html">Cart</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop</a>
+  <a href="wishlist.html">Wishlist</a>
+  <a href="compare.html">Compare</a>
+  <a href="cart.html">Cart</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
 </aside>
 
 <section class="container">
   <div class="shop-layout">
-    <!-- FILTERS -->
     <aside class="filters">
       <div class="filter-group">
         <h4>Category</h4>
@@ -65,7 +89,6 @@
       </div>
     </aside>
 
-    <!-- PRODUCTS -->
     <div>
       <div class="shop-toolbar">
         <div class="results" id="results-count">Loading…</div>
@@ -77,24 +100,31 @@
           <option value="name-desc">Name: Z–A</option>
         </select>
       </div>
-      <div class="product-grid" id="shop-grid"></div>
+      <div class="product-grid cols-4" id="shop-grid"></div>
     </div>
   </div>
 </section>
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-grid">
-      <div><div class="footer-brand"><div class="logo">M</div>Maisha Mabati</div><p>Quality roofing & building materials in Kenya.</p></div>
-      <div><h4>Shop</h4><ul><li><a href="shop.html">All Products</a></li></ul></div>
-      <div><h4>Help</h4><ul><li><a href="contact.html">Contact</a></li></ul></div>
-      <div><h4>Contact</h4><ul><li>📞 +254 785 002 606</li></ul></div>
+    <div class="footer-bottom" style="border:none;">
+      <div>© 2026 Maisha Mabati. All rights reserved.</div>
+      <div>Built with ❤️ in Kenya</div>
     </div>
-    <div class="footer-bottom"><div>© 2026 Maisha Mabati</div><div>Built with ❤️ in Kenya</div></div>
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/254785002606" target="_blank">💬</a>
+<div class="mobile-bottom">
+  <ul>
+    <li><a href="shop.html"><span class="icon">🏬</span>Store</a></li>
+    <li><a href="shop.html"><span class="icon">🔍</span>Search</a></li>
+    <li><a href="wishlist.html"><span class="icon">♡</span>Wishlist</a></li>
+    <li><a href="cart.html"><span class="icon">🛒</span>Cart</a></li>
+    <li><a href="shop.html"><span class="icon">☰</span>Categories</a></li>
+  </ul>
+</div>
+
+<a class="wa-float" href="https://wa.me/254785002606" target="_blank" rel="noopener">💬</a>
 
 <script src="js/config.js"></script>
 <script src="js/products.js"></script>
@@ -103,7 +133,6 @@
 <script src="js/compare.js"></script>
 <script src="js/main.js"></script>
 <script>
-/* ---------- SHOP PAGE LOGIC ---------- */
 (function () {
   const params = new URLSearchParams(location.search);
   let state = {
@@ -114,20 +143,16 @@
     sort: 'default'
   };
 
-  // Populate category filters
   const catWrap = document.getElementById('cat-filters');
-  catWrap.innerHTML = `<label><input type="checkbox" value="" ${!state.category ? 'checked' : ''}> All</label>` +
+  catWrap.innerHTML =
+    `<label><input type="checkbox" value="" ${!state.category ? 'checked' : ''}> All</label>` +
     CONFIG.CATEGORIES.map(c =>
       `<label><input type="checkbox" value="${c}" ${state.category === c ? 'checked' : ''}> ${c}</label>`
     ).join('');
 
-  // Pre-fill search
   document.getElementById('shop-search').value = state.search;
 
-  // Handlers
   catWrap.addEventListener('change', e => {
-    const checked = catWrap.querySelectorAll('input:checked');
-    // only one category at a time
     if (e.target.value === '') {
       catWrap.querySelectorAll('input').forEach(i => i.checked = false);
       e.target.checked = true;
@@ -167,7 +192,6 @@
     renderShop();
   });
 
-  // Live search from search bar
   document.querySelector('.search-bar').addEventListener('submit', e => {
     e.preventDefault();
     state.search = document.getElementById('shop-search').value.trim();
@@ -181,7 +205,6 @@
   function renderShop() {
     let list = PRODUCTS.slice();
 
-    // Search
     if (state.search) {
       const q = state.search.toLowerCase();
       list = list.filter(p =>
@@ -191,17 +214,10 @@
         p.keywords.some(k => k.toLowerCase().includes(q))
       );
     }
-
-    // Category
     if (state.category) list = list.filter(p => p.category === state.category);
-
-    // Price
     list = list.filter(p => (p.salePrice || p.price) <= state.maxPrice);
-
-    // Stock
     if (state.inStock) list = list.filter(p => p.stock);
 
-    // Sort
     switch (state.sort) {
       case 'price-asc': list.sort((a,b) => (a.salePrice||a.price) - (b.salePrice||b.price)); break;
       case 'price-desc': list.sort((a,b) => (b.salePrice||b.price) - (a.salePrice||a.price)); break;

@@ -1,6 +1,5 @@
 /* =========================================================
-   PRODUCT DATA
-   Add / edit / remove products here.
+   PRODUCT DATA — add / edit / remove products here
    ========================================================= */
 
 const PRODUCTS = [
@@ -246,7 +245,6 @@ const PRODUCTS = [
   },
 ];
 
-/* Lookup helper */
 function getProductById(id) {
   return PRODUCTS.find((p) => p.id === Number(id));
 }

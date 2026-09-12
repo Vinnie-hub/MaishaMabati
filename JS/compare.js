@@ -11,7 +11,7 @@ function getCompare() {
 }
 function saveCompare(list) {
   localStorage.setItem(CONFIG.STORAGE.COMPARE, JSON.stringify(list));
-  updateHeaderBadges();
+  if (typeof updateHeaderBadges === "function") updateHeaderBadges();
 }
 function isInCompare(id) {
   return getCompare().includes(Number(id));
@@ -33,6 +33,10 @@ function toggleCompare(id) {
     showToast("Added to compare");
   }
   saveCompare(list);
+}
+
+function removeFromCompare(id) {
+  saveCompare(getCompare().filter((x) => x !== Number(id)));
 }
 
 /* ---------- COMPARE PAGE ---------- */
@@ -111,10 +115,6 @@ function renderComparePage() {
       renderComparePage();
     });
   });
-}
-
-function removeFromCompare(id) {
-  saveCompare(getCompare().filter((x) => x !== Number(id)));
 }
 
 document.addEventListener("DOMContentLoaded", () => {

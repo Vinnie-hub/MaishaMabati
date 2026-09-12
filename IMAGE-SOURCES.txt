@@ -9,9 +9,6 @@ Examples used:
 - https://images.unsplash.com/photo-1565793298595-6a879b1d9492  (steel)
 - https://images.unsplash.com/photo-1581092160562-40aa08e78837  (nails/hardware)
 
-To replace with your own photos:
-1. Put your images in /images/ folder.
-2. Update the "image" and "images" fields in /js/products.js.
-3. Update background-image URLs in css/style.css and the hero section in index.html.
+Logo & favicon: your Cloudinary URLs (already embedded in index.html).
 
 Unsplash license: https://unsplash.com/license

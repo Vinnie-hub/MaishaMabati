@@ -11,7 +11,7 @@ function getWishlist() {
 }
 function saveWishlist(list) {
   localStorage.setItem(CONFIG.STORAGE.WISHLIST, JSON.stringify(list));
-  updateHeaderBadges();
+  if (typeof updateHeaderBadges === "function") updateHeaderBadges();
 }
 function isInWishlist(id) {
   return getWishlist().includes(Number(id));
@@ -35,11 +35,6 @@ function removeFromWishlist(id) {
   saveWishlist(getWishlist().filter((x) => x !== Number(id)));
 }
 
-function moveWishlistToCart(id) {
-  addToCart(id, 1);
-  removeFromWishlist(id);
-}
-
 /* ---------- WISHLIST PAGE ---------- */
 function renderWishlistPage() {
   const grid = document.getElementById("wishlist-grid");
@@ -48,7 +43,7 @@ function renderWishlistPage() {
 
   if (list.length === 0) {
     grid.outerHTML = `
-      <div class="empty-state">
+      <div class="empty-state" style="grid-column:1/-1;">
         <div class="ico">♡</div>
         <h3>Your wishlist is empty</h3>
         <p>Save products you love and find them here later.</p>

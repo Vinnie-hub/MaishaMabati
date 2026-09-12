@@ -1,5 +1,5 @@
 /* =========================================================
-   CART — localStorage based
+   CART — localStorage
    ========================================================= */
 
 function getCart() {
@@ -11,7 +11,7 @@ function getCart() {
 }
 function saveCart(cart) {
   localStorage.setItem(CONFIG.STORAGE.CART, JSON.stringify(cart));
-  updateHeaderBadges();
+  if (typeof updateHeaderBadges === "function") updateHeaderBadges();
 }
 
 function addToCart(id, qty = 1, color = null, variant = null) {
@@ -20,11 +20,8 @@ function addToCart(id, qty = 1, color = null, variant = null) {
   const cart = getCart();
   const key = `${id}-${color || ""}-${variant || ""}`;
   const existing = cart.find((i) => i.key === key);
-  if (existing) {
-    existing.qty += qty;
-  } else {
-    cart.push({ key, id, qty, color, variant });
-  }
+  if (existing) existing.qty += qty;
+  else cart.push({ key, id, qty, color, variant });
   saveCart(cart);
   showToast(`${p.name} added to cart`);
 }
@@ -58,7 +55,7 @@ function getCartCount() {
   return getCart().reduce((s, i) => s + i.qty, 0);
 }
 
-/* ---------- CART PAGE RENDER ---------- */
+/* ---------- CART PAGE ---------- */
 function renderCartPage() {
   const wrap = document.getElementById("cart-items");
   const summary = document.getElementById("cart-summary");
@@ -68,7 +65,7 @@ function renderCartPage() {
 
   if (cart.length === 0) {
     wrap.outerHTML = `
-      <div class="empty-state">
+      <div class="empty-state" style="grid-column:1/-1;">
         <div class="ico">🛒</div>
         <h3>Your cart is empty</h3>
         <p>Browse our products and add items to your cart.</p>
@@ -91,7 +88,7 @@ function renderCartPage() {
           <h4>${p.name}</h4>
           <div class="meta">
             ${item.color ? "Color: " + item.color : ""}
-            ${item.variant ? " | Variant: " + item.variant : ""}
+            ${item.variant ? " | " + item.variant : ""}
           </div>
           <div class="price">${formatMoney(price)}</div>
         </div>
@@ -107,21 +104,18 @@ function renderCartPage() {
 
   if (summary) {
     const subtotal = getCartTotal();
-    const shipping = 0;
-    const total = subtotal + shipping;
     summary.innerHTML = `
       <h3>Order Summary</h3>
       <div class="summary-row"><span>Subtotal</span><span>${formatMoney(subtotal)}</span></div>
-      <div class="summary-row"><span>Delivery</span><span>To be confirmed</span></div>
-      <div class="summary-row total"><span>Total</span><span>${formatMoney(total)}</span></div>
-      <button class="btn btn-green btn-block" id="checkout-wa">Order via WhatsApp</button>
+      <div class="summary-row"><span>Delivery</span><span>Confirmed on WhatsApp</span></div>
+      <div class="summary-row total"><span>Total</span><span>${formatMoney(subtotal)}</span></div>
+      <button class="btn btn-green btn-block" id="checkout-wa">💬 Order via WhatsApp</button>
       <button class="btn btn-ghost btn-block" id="clear-cart" style="margin-top:8px;">Clear Cart</button>
       <a href="shop.html" class="btn btn-outline btn-block" style="margin-top:8px;">Continue Shopping</a>
     `;
-
     document
       .getElementById("checkout-wa")
-      .addEventListener("click", () => checkoutWhatsApp());
+      .addEventListener("click", checkoutWhatsApp);
     document.getElementById("clear-cart").addEventListener("click", () => {
       if (confirm("Clear all items from cart?")) {
         clearCart();
@@ -130,7 +124,6 @@ function renderCartPage() {
     });
   }
 
-  // cart qty handlers
   wrap.querySelectorAll("[data-cart-action]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const key = btn.dataset.key;
@@ -176,8 +169,10 @@ function checkoutWhatsApp() {
   msg += `Delivery Location: \n\n`;
   msg += `Please confirm availability and delivery details.`;
 
-  const url = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-  window.open(url, "_blank");
+  window.open(
+    `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,
+    "_blank",
+  );
 }
 
 /* ---------- SINGLE PRODUCT WHATSAPP ---------- */
@@ -189,7 +184,7 @@ function orderSingleWhatsApp(id, qty = 1, color = null, variant = null) {
 
   let msg = "Hello, I would like to place an order:\n\n";
   msg += `Product: ${p.name}\n`;
-  if (color) msg += `Variant/Color: ${color}\n`;
+  if (color) msg += `Color: ${color}\n`;
   if (variant) msg += `Variant: ${variant}\n`;
   msg += `Quantity: ${qty}\n`;
   msg += `Price: ${CONFIG.CURRENCY} ${price}\n\n`;

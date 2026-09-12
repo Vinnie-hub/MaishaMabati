@@ -1,5 +1,5 @@
 /* =========================================================
-   MAIN — shared UI logic (nav, search, toast, render helpers)
+   MAIN — shared UI logic
    ========================================================= */
 
 /* ---------- TOAST ---------- */
@@ -58,11 +58,11 @@ function initHeaderSearch() {
 
 /* ---------- HEADER BADGES ---------- */
 function updateHeaderBadges() {
-  const cart = getCart();
-  const wish = getWishlist();
-  const cmp = getCompare();
-
+  const cart = typeof getCart === "function" ? getCart() : [];
+  const wish = typeof getWishlist === "function" ? getWishlist() : [];
+  const cmp = typeof getCompare === "function" ? getCompare() : [];
   const cartCount = cart.reduce((s, i) => s + i.qty, 0);
+
   document.querySelectorAll('[data-badge="cart"]').forEach((el) => {
     el.textContent = cartCount;
     el.style.display = cartCount > 0 ? "flex" : "none";
@@ -77,17 +77,20 @@ function updateHeaderBadges() {
   });
 }
 
-/* ---------- PRODUCT CARD RENDERER ---------- */
+/* ---------- PRODUCT CARD ---------- */
 function renderProductCard(p) {
-  const inWish = isInWishlist(p.id);
-  const inCmp = isInCompare(p.id);
+  const inWish =
+    typeof isInWishlist === "function" ? isInWishlist(p.id) : false;
+  const inCmp = typeof isInCompare === "function" ? isInCompare(p.id) : false;
   const hasSale = p.salePrice && p.salePrice < p.price;
   const displayPrice = hasSale ? p.salePrice : p.price;
 
-  const waText = encodeURIComponent(
-    `Hello, I would like to order:\n\nProduct: ${p.name}\nPrice: ${CONFIG.CURRENCY} ${displayPrice}\n\nPlease confirm availability.`,
-  );
-  const waLink = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${waText}`;
+  const waMsg =
+    `Hello, I would like to order:\n\n` +
+    `Product: ${p.name}\n` +
+    `Price: ${CONFIG.CURRENCY} ${displayPrice}\n\n` +
+    `Please confirm availability.`;
+  const waLink = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(waMsg)}`;
 
   return `
     <article class="product-card" data-id="${p.id}">
@@ -110,13 +113,20 @@ function renderProductCard(p) {
         <span class="product-cat">${p.category}</span>
         <h3 class="product-title"><a href="product.html?id=${p.id}">${p.name}</a></h3>
         <div class="product-price">
-          ${hasSale ? `<del>${formatMoney(p.price)}</del><ins>${formatMoney(p.salePrice)}</ins>` : formatMoney(p.price)}
+          ${
+            hasSale
+              ? `<del>${formatMoney(p.price)}</del><ins>${formatMoney(p.salePrice)}</ins>`
+              : formatMoney(p.price)
+          }
         </div>
         <div class="product-stock ${p.stock ? "" : "out"}">
           ${p.stock ? "● In Stock" : "● Out of Stock"}
         </div>
         <div class="product-actions">
-          <button class="btn btn-primary" data-action="add-cart" data-id="${p.id}" ${!p.stock ? 'disabled style="opacity:.5;cursor:not-allowed"' : ""}>Add</button>
+          <button class="btn btn-primary" data-action="add-cart" data-id="${p.id}"
+            ${!p.stock ? 'disabled style="opacity:.5;cursor:not-allowed"' : ""}>
+            Add to Cart
+          </button>
           <a class="btn btn-green" href="${waLink}" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
@@ -129,26 +139,31 @@ function initGlobalActions() {
   document.body.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-action]");
     if (!btn) return;
-
     const action = btn.dataset.action;
     const id = Number(btn.dataset.id);
 
     if (action === "add-cart") {
       e.preventDefault();
-      addToCart(id);
-      updateHeaderBadges();
+      if (typeof addToCart === "function") {
+        addToCart(id);
+        updateHeaderBadges();
+      }
     }
     if (action === "wishlist") {
       e.preventDefault();
-      toggleWishlist(id);
-      btn.classList.toggle("active");
-      updateHeaderBadges();
+      if (typeof toggleWishlist === "function") {
+        toggleWishlist(id);
+        btn.classList.toggle("active");
+        updateHeaderBadges();
+      }
     }
     if (action === "compare") {
       e.preventDefault();
-      toggleCompare(id);
-      btn.classList.toggle("active");
-      updateHeaderBadges();
+      if (typeof toggleCompare === "function") {
+        toggleCompare(id);
+        btn.classList.toggle("active");
+        updateHeaderBadges();
+      }
     }
   });
 }

@@ -10,7 +10,6 @@
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
 <header class="site-header">
   <div class="topbar">
     <div class="container">
@@ -23,7 +22,7 @@
     <div class="header-main">
       <button class="menu-toggle" aria-label="Menu">☰</button>
       <a href="index.html" class="brand">
-        <div class="logo"><img src="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789197790/Maisha_mabati_logo_lam5sr.png" alt="Maisha Mabati Logo"></div>
+        <img src="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789197790/Maisha_mabati_logo_lam5sr.png" alt="Maisha Mabati">
       </a>
 
       <form class="search-bar" role="search">
@@ -50,17 +49,18 @@
 
   <nav class="main-nav">
     <div class="container">
+      <a href="shop.html" class="all-cats">☰ All Categories</a>
       <ul>
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="shop.html">Shop</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
+      <a href="contact.html" class="nav-help">ℹ️ Help Center</a>
     </div>
   </nav>
 </header>
 
-<!-- ===== MOBILE MENU ===== -->
 <div class="overlay"></div>
 <aside class="mobile-menu">
   <h3>Menu</h3>
@@ -73,58 +73,84 @@
   <a href="contact.html">Contact</a>
 </aside>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <span class="hero-badge">KEBS Certified · Countrywide Delivery</span>
+<!-- HERO SLIDER -->
+<section class="hero-slider" id="hero-slider">
+  <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=85');">
+    <div class="container">
+      <div class="hero-content">
         <h1>Sheltering You Today &amp; Tomorrow</h1>
-        <p>High quality galvanized and colour-coated steel roofing sheets with durable lifespan for a trusted shelter. Order online and confirm via WhatsApp.</p>
-        <div class="hero-cta">
-          <a href="shop.html" class="btn btn-accent">Shop Now →</a>
-          <a href="contact.html" class="btn btn-outline" style="border-color:#fff;color:#fff;">Talk to Us</a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=85" alt="Roofing">
-        <img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=600&q=85" alt="Mabati">
-        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=85" alt="Steel">
+        <p>High quality galvanized and colour-coated steel roofing sheets with durable lifespan for a trusted shelter.</p>
+        <a href="shop.html" class="btn btn-accent">Shop Now →</a>
       </div>
     </div>
   </div>
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=1600&q=85');">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Quality You Can Trust</h1>
+        <p>KEBS-certified alu-zinc and colour-coated mabati, manufactured at our modern plant in Ruiru.</p>
+        <a href="shop.html" class="btn btn-accent">Explore Products →</a>
+      </div>
+    </div>
+  </div>
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=85');">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Countrywide Delivery</h1>
+        <p>Fast and reliable delivery to every corner of Kenya — same-day available in Nairobi.</p>
+        <a href="shop.html" class="btn btn-accent">Order Today →</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-dots" id="hero-dots"></div>
 </section>
 
-<!-- ===== FEATURES ===== -->
-<section class="section">
+<!-- ICON FEATURES -->
+<section class="icon-features">
   <div class="container">
-    <div class="features-grid">
-      <div class="feature">
-        <div class="ico">🛡️</div>
+    <div class="icon-feat">
+      <div class="ico">🛡️</div>
+      <div>
         <h3>Quality You Can Trust</h3>
-        <p>Manufactured with state-of-the-art technology — superior strength, durability and weather resistance.</p>
+        <p>Manufactured with state-of-the-art technology at our modern alu-zinc plant in Ruiru — superior strength, durability and weather resistance.</p>
       </div>
-      <div class="feature">
-        <div class="ico">💰</div>
+    </div>
+    <div class="icon-feat">
+      <div class="ico">💰</div>
+      <div>
         <h3>Amazing Offers</h3>
         <p>Competitively priced roofing solutions that balance quality and affordability for every Kenyan.</p>
       </div>
-      <div class="feature">
-        <div class="ico">🚚</div>
-        <h3>Fast Delivery</h3>
-        <p>Efficient production and a strong distribution network — timely delivery across Kenya.</p>
-      </div>
-      <div class="feature">
-        <div class="ico">📞</div>
-        <h3>Order via WhatsApp</h3>
-        <p>No account needed. Add to cart and confirm your order in one WhatsApp message.</p>
+    </div>
+    <div class="icon-feat">
+      <div class="ico">🚚</div>
+      <div>
+        <h3>Fast &amp; Reliable Delivery</h3>
+        <p>Efficient production and a strong distribution network — timely, dependable delivery across Kenya.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== CATEGORIES ===== -->
-<section class="section" style="background:#fff;">
+<!-- STORY -->
+<section class="section">
+  <div class="container">
+    <div class="story">
+      <div>
+        <h2>Our Roofing Sheets Are Distinctly Different</h2>
+        <p>It is the vision and commitment of Mr Narendra Raval EBS (Guru) to supply building and construction materials at affordable costs to the local Kenyan population. Maisha Mabati Mills began with galvanised and coloured steel roofing sheets.</p>
+        <p>Our products are largely focused on being durable, functional, strong and cost-effective to enable Kenyans around the country to build better standard homes.</p>
+        <a href="about.html" class="btn btn-primary" style="margin-top:12px;">Learn More →</a>
+      </div>
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=900&q=85" alt="Roofing" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section section-gray">
   <div class="container">
     <div class="section-head">
       <div class="eyebrow">Browse by category</div>
@@ -134,70 +160,136 @@
   </div>
 </section>
 
-<!-- ===== FEATURED PRODUCTS ===== -->
+<!-- LATEST DEALS -->
 <section class="section">
   <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">Hand-picked for you</div>
-      <h2>Featured Products</h2>
+    <div class="grid-header">
+      <h3>Latest Deals This Month</h3>
+      <div class="countdown-wrap">
+        <div class="countdown" id="countdown" data-date="2026/12/31">
+          <div class="count-item days">00</div>
+          <span class="separator">:</span>
+          <div class="count-item hours">00</div>
+          <span class="separator">:</span>
+          <div class="count-item minutes">00</div>
+          <span class="separator">:</span>
+          <div class="count-item second">00</div>
+        </div>
+        <div class="countdown-label">Remains until end of offer</div>
+      </div>
+      <a href="shop.html" class="view-all">View All →</a>
     </div>
-    <div class="product-grid" id="featured-grid"></div>
-    <div style="text-align:center;margin-top:32px;">
-      <a href="shop.html" class="btn btn-primary">View All Products →</a>
+    <div class="product-grid" id="deals-grid"></div>
+
+    <div class="coupon">
+      <div class="sale">-5<span>%</span></div>
+      <div class="text">
+        <h4>On orders above 50 meters</h4>
+        <p>Use discount code in checkout page or WhatsApp.</p>
+      </div>
+      <div class="code">Whatsapp</div>
     </div>
   </div>
 </section>
 
-<!-- ===== BEST SELLERS ===== -->
-<section class="section" style="background:#fff;">
+<!-- MAISHA MABATI PRODUCTS -->
+<section class="section section-gray">
   <div class="container">
     <div class="section-head">
-      <div class="eyebrow">Trusted by builders</div>
-      <h2>Best Sellers</h2>
+      <div class="eyebrow">High quality, KEBS standard</div>
+      <h2>Maisha Mabati Products</h2>
+      <p>Our high quality, KEBS standard roofing sheets are durable, functional and strong — with a wide variety to meet every customer need, whether on-demand or custom.</p>
     </div>
-    <div class="product-grid" id="bestseller-grid"></div>
+    <div class="product-grid" id="products-grid"></div>
   </div>
 </section>
 
-<!-- ===== CTA ===== -->
+<!-- WHY US -->
+<section class="why-section">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-img">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=85" alt="Why Maisha Mabati" loading="lazy">
+      </div>
+      <div>
+        <h2 class="why-heading">Why Maisha Mabati</h2>
+        <ul class="why-list">
+          <li>High corrosive resistance</li>
+          <li>High gloss and scratch resistant</li>
+          <li>Unique heat reflection capabilities</li>
+          <li>Modern appearance and greater aesthetic appeal</li>
+          <li>Value for money</li>
+          <li>Available in all gauges; for low, medium and high cost roofing solutions</li>
+          <li>Variety of colours, profiles, and customised sizes</li>
+          <li>Suitable for all applications</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO -->
+<section class="container">
+  <div class="promo-grid">
+    <div class="promo-card" style="background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=85');">
+      <div class="inner">
+        <span class="badge-p">Order Today</span>
+        <h3>Our products guarantee the best quality with the KEBS Diamond Mark</h3>
+        <p>Rustproof, suitable for all Kenyan atmospheric conditions and available countrywide.</p>
+        <a href="shop.html" class="btn btn-accent">Shop Now →</a>
+      </div>
+    </div>
+    <div class="promo-card" style="background-image:url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=85');">
+      <div class="inner">
+        <span class="badge-p">On Sale</span>
+        <h3>Get the Right Building Mabati at the Right Price Today</h3>
+        <p>Shop our popular discounts &amp; offers.</p>
+        <a href="shop.html" class="btn btn-accent">Order Now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
 <section class="container">
   <div class="cta-banner">
     <div>
       <h2>Need a custom quote for your project?</h2>
       <p>Talk to our team on WhatsApp — we'll help you choose the right gauge, profile and colours.</p>
     </div>
-    <a href="https://wa.me/254785002606" target="_blank" rel="noopener" class="btn btn-green">💬 Chat on WhatsApp</a>
+    <a href="https://wa.me/254785002606" target="_blank" rel="noopener" class="btn btn-accent">💬 Chat on WhatsApp</a>
   </div>
 </section>
 
-<!-- ===== TESTIMONIALS ===== -->
-<section class="section" style="background:#fff;">
+<!-- TESTIMONIALS -->
+<section class="section section-gray">
   <div class="container">
     <div class="section-head">
       <div class="eyebrow">Customer stories</div>
       <h2>What Our Customers Say</h2>
+      <p>At Maisha Mabati, customer satisfaction is at the heart of everything we do.</p>
     </div>
     <div class="testimonials">
       <div class="testimonial">
         <div class="stars">★★★★★</div>
-        <p>"Maisha Mabati roofing sheets are extremely durable and affordable. The team guided me through the selection process and my house has never looked better."</p>
+        <p class="quote">"Maisha Mabati roofing sheets are extremely durable and affordable. The team guided me through the selection process and my house has never looked better."</p>
         <div class="person"><div class="avatar">TS</div><div><div class="name">Tonny Siema</div><div class="role">Businessman</div></div></div>
       </div>
       <div class="testimonial">
         <div class="stars">★★★★★</div>
-        <p>"Fast delivery and excellent quality! I was able to complete my project on time thanks to Maisha Mabati. Their customer service is top-notch."</p>
+        <p class="quote">"Fast delivery and excellent quality! I was able to complete my project on time thanks to Maisha Mabati. Their customer service is top-notch."</p>
         <div class="person"><div class="avatar">MA</div><div><div class="name">Mary A.</div><div class="role">Sales Manager, Nairobi</div></div></div>
       </div>
       <div class="testimonial">
         <div class="stars">★★★★★</div>
-        <p>"I've been using Maisha Alu-zinc sheets for all my building projects. Strong, weather-resistant and cost-effective. Truly a brand you can trust."</p>
+        <p class="quote">"I've been using Maisha Alu-zinc sheets for all my building projects. Strong, weather-resistant and cost-effective. Truly a brand you can trust."</p>
         <div class="person"><div class="avatar">KO</div><div><div class="name">Kevin O.</div><div class="role">Business Manager, Umoja</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== NEWSLETTER ===== -->
+<!-- NEWSLETTER -->
 <section class="newsletter">
   <div class="container">
     <div>
@@ -211,12 +303,14 @@
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div>
-        <div class="footer-brand"><div class="logo">M</div>Maisha Mabati</div>
+        <div class="footer-brand">
+          <img src="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789197790/Maisha_mabati_logo_lam5sr.png" alt="Maisha Mabati">
+        </div>
         <p>Quality alu-zinc and colour-coated steel roofing sheets, cement, steel and building materials delivered across Kenya since 2009.</p>
         <div class="socials">
           <a href="#" aria-label="Facebook">f</a>
@@ -262,9 +356,18 @@
   </div>
 </footer>
 
+<div class="mobile-bottom">
+  <ul>
+    <li><a href="shop.html"><span class="icon">🏬</span>Store</a></li>
+    <li><a href="shop.html"><span class="icon">🔍</span>Search</a></li>
+    <li><a href="wishlist.html"><span class="icon">♡</span>Wishlist</a></li>
+    <li><a href="cart.html"><span class="icon">🛒</span>Cart</a></li>
+    <li><a href="shop.html"><span class="icon">☰</span>Categories</a></li>
+  </ul>
+</div>
+
 <a class="wa-float" href="https://wa.me/254785002606" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
 
-<!-- ===== SCRIPTS ===== -->
 <script src="js/config.js"></script>
 <script src="js/products.js"></script>
 <script src="js/cart.js"></script>
@@ -272,33 +375,81 @@
 <script src="js/compare.js"></script>
 <script src="js/main.js"></script>
 <script>
-  // Render home page dynamic sections
-  document.addEventListener('DOMContentLoaded', () => {
-    // Featured
-    const featured = PRODUCTS.filter(p => p.featured).slice(0, 8);
-    document.getElementById('featured-grid').innerHTML = featured.map(renderProductCard).join('');
+document.addEventListener('DOMContentLoaded', () => {
+  // Hero slider
+  (function () {
+    const slides = document.querySelectorAll('#hero-slider .slide');
+    const dotsWrap = document.getElementById('hero-dots');
+    if (!slides.length) return;
+    let current = 0, timer;
+    slides.forEach((_, i) => {
+      const b = document.createElement('button');
+      if (i === 0) b.classList.add('active');
+      b.addEventListener('click', () => go(i));
+      dotsWrap.appendChild(b);
+    });
+    const dots = dotsWrap.querySelectorAll('button');
+    function go(i) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (i + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      restart();
+    }
+    function next() { go(current + 1); }
+    function restart() { clearInterval(timer); timer = setInterval(next, 5000); }
+    restart();
+  })();
 
-    // Best sellers
-    const best = PRODUCTS.filter(p => p.bestSeller).slice(0, 8);
-    document.getElementById('bestseller-grid').innerHTML = best.map(renderProductCard).join('');
+  // Countdown
+  (function () {
+    const el = document.getElementById('countdown');
+    if (!el) return;
+    const target = new Date(el.dataset.date.replace(/-/g, '/')).getTime();
+    const d = el.querySelector('.days');
+    const h = el.querySelector('.hours');
+    const m = el.querySelector('.minutes');
+    const s = el.querySelector('.second');
+    const pad = n => (n < 10 ? '0' + n : '' + n);
+    function tick() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        d.textContent = h.textContent = m.textContent = s.textContent = '00';
+        clearInterval(t);
+        return;
+      }
+      const t2 = Math.floor(diff / 1000);
+      d.textContent = pad(Math.floor(t2 / 86400));
+      h.textContent = pad(Math.floor((t2 % 86400) / 3600));
+      m.textContent = pad(Math.floor((t2 % 3600) / 60));
+      s.textContent = pad(t2 % 60);
+    }
+    tick();
+    const t = setInterval(tick, 1000);
+  })();
 
-    // Categories
-    const catImages = {
-      'Roofing Sheets': 'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=500&q=80',
-      'Steel': 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=500&q=80',
-      'Cement': 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80',
-      'Building Materials': 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=500&q=80',
-      'Roofing Accessories': 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=500&q=80',
-      'Hardware': 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=500&q=80'
-    };
-    document.getElementById('home-categories').innerHTML = CONFIG.CATEGORIES.map(cat => `
-      <a href="shop.html?category=${encodeURIComponent(cat)}" class="cat-card" style="background-image:url('${catImages[cat] || catImages['Roofing Sheets']}');">
-        <span>${cat}</span>
-      </a>
-    `).join('');
+  // Product grids
+  document.getElementById('deals-grid').innerHTML = PRODUCTS.slice(0, 5).map(renderProductCard).join('');
+  document.getElementById('products-grid').innerHTML = PRODUCTS.slice(0, 10).map(renderProductCard).join('');
 
-    updateHeaderBadges();
-  });
+  // Categories
+  const catImages = {
+    'Roofing Sheets': 'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=500&q=80',
+    'Steel': 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=500&q=80',
+    'Cement': 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80',
+    'Building Materials': 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=500&q=80',
+    'Roofing Accessories': 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=500&q=80',
+    'Hardware': 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=500&q=80'
+  };
+  document.getElementById('home-categories').innerHTML = CONFIG.CATEGORIES.map(cat => `
+    <a href="shop.html?category=${encodeURIComponent(cat)}" class="cat-card" style="background-image:url('${catImages[cat] || catImages['Roofing Sheets']}');">
+      <span>${cat}</span>
+    </a>
+  `).join('');
+
+  updateHeaderBadges();
+});
 </script>
 </body>
 </html>

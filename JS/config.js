@@ -11,9 +11,15 @@ const CONFIG = {
   BUSINESS_NAME: "Maisha Mabati",
   TAGLINE: "Sheltering You Today & Tomorrow",
   PHONE: "+254 785 002 606",
+  PHONE_TEL: "+254785002606",
   EMAIL: "info@maishamabati.co.ke",
   ADDRESS: "Ruiru, Kiambu County, Kenya",
   HOURS: "Mon–Fri: 9:00–20:00 | Sat: 11:00–15:00",
+
+  // Logo & favicon
+  LOGO: "https://res.cloudinary.com/dovhxt8ye/image/upload/v1789197790/Maisha_mabati_logo_lam5sr.png",
+  FAVICON:
+    "https://res.cloudinary.com/dovhxt8ye/image/upload/v1789198256/maisha_mabti_favicon_mxerej.png",
 
   // Social (placeholders)
   SOCIAL: {
@@ -34,7 +40,7 @@ const CONFIG = {
     COMPARE: "mm_compare",
   },
 
-  // Categories (editable)
+  // Categories
   CATEGORIES: [
     "Roofing Sheets",
     "Steel",
