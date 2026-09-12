@@ -29,9 +29,7 @@
 <script src="js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('header-slot').innerHTML = renderHeader('compare');
-  document.getElementById('footer-slot').innerHTML = renderFooter();
-  initMobileMenu();
+  initHeaderAndFooter('compare');
   renderComparePage();
   updateHeaderBadges();
 });

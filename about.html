@@ -64,9 +64,7 @@
 <script src="js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('header-slot').innerHTML = renderHeader('about');
-  document.getElementById('footer-slot').innerHTML = renderFooter();
-  initMobileMenu();
+  initHeaderAndFooter('about');
   document.querySelectorAll('[data-icon]').forEach(el => el.innerHTML = icon(el.dataset.icon, 26));
   document.querySelectorAll('[data-arrow]').forEach(el => el.innerHTML = icon('arrowR', 16));
   updateHeaderBadges();

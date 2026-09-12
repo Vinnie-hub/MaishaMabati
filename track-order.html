@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Your Order — Maisha Mabati</title>
+<meta name="description" content="Track the status of your Maisha Mabati order using your Order ID or phone number.">
+<link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dovhxt8ye/image/upload/v1789198256/maisha_mabti_favicon_mxerej.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="header-slot"></div>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Track Your Order</h1>
+    <p>Enter your Order ID or the phone number you ordered with to see your delivery status.</p>
+  </div>
+</section>
+
+<section class="container">
+  <div class="track-form">
+    <h3 id="track-form-title">Find your order</h3>
+    <p>You'll find your Order ID in the WhatsApp confirmation message we sent you.</p>
+    <form id="track-form">
+      <div class="track-form-row">
+        <div class="form-group">
+          <label>Order ID</label>
+          <input name="orderId" placeholder="e.g. MM-48213" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input name="phone" placeholder="e.g. 0785 002 606" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" id="track-submit">Track Order</button>
+    </form>
+  </div>
+
+  <div class="track-result" id="track-result" style="display:none;"></div>
+
+  <div class="empty-state" id="track-help" style="max-width:640px;margin:0 auto 60px;">
+    <div class="ico"></div>
+    <h3>Can't find your Order ID?</h3>
+    <p>No problem — our team can look it up for you on WhatsApp using your phone number and delivery location.</p>
+    <a href="#" id="track-wa-help" target="_blank" rel="noopener" class="btn btn-green">Chat with Support</a>
+  </div>
+</section>
+
+<div id="footer-slot"></div>
+
+<script src="js/config.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/compare.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  initHeaderAndFooter('track');
+
+  document.querySelector('#track-help .ico').innerHTML = icon('search', 46);
+  const waHelp = document.getElementById('track-wa-help');
+  waHelp.href = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent("Hello, I'd like help tracking my order. My phone number is: ")}`;
+
+  const STAGES = [
+    { key: 'placed',    label: 'Order Placed',      desc: 'We received your order and it is being confirmed.' },
+    { key: 'confirmed', label: 'Order Confirmed',   desc: 'Payment/details verified. Your order is being prepared.' },
+    { key: 'dispatch',  label: 'Out for Delivery',  desc: 'Your order has left our Ruiru plant / nearest depot.' },
+    { key: 'delivered', label: 'Delivered',         desc: 'Your order has arrived. Thank you for choosing Maisha Mabati!' },
+  ];
+
+  // Deterministic demo status generator based on Order ID + phone,
+  // so the same order always shows the same status.
+  function hashStr(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) {
+      h = (h << 5) - h + str.charCodeAt(i);
+      h |= 0;
+    }
+    return Math.abs(h);
+  }
+
+  function buildTimelineHTML(currentIndex, orderId, etaDays) {
+    return STAGES.map((s, i) => {
+      let stateClass = '';
+      if (i < currentIndex) stateClass = 'done';
+      else if (i === currentIndex) stateClass = 'current';
+      const when = i < currentIndex
+        ? 'Completed'
+        : i === currentIndex
+          ? 'In progress'
+          : 'Pending';
+      const iconName = i < currentIndex ? 'check' : (i === currentIndex ? 'truck' : 'clock');
+      return `
+        <div class="timeline-step ${stateClass}">
+          <div class="dot">${icon(iconName, 15)}</div>
+          <h4>${s.label}</h4>
+          <p>${s.desc}</p>
+          <span class="when">${when}</span>
+        </div>`;
+    }).join('');
+  }
+
+  document.getElementById('track-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const orderId = f.orderId.value.trim();
+    const phone = f.phone.value.trim();
+    if (!orderId || !phone) return;
+
+    const seed = hashStr(orderId.toUpperCase() + phone.replace(/\D/g, ''));
+    const currentIndex = seed % STAGES.length; // 0..3, deterministic per order
+    const etaDays = 1 + (seed % 3);
+
+    const resultWrap = document.getElementById('track-result');
+    const statusLabel = STAGES[currentIndex].label;
+    const isDelivered = currentIndex === STAGES.length - 1;
+
+    resultWrap.innerHTML = `
+      <div class="track-summary">
+        <div>
+          <h4>Order ${orderId.toUpperCase()}</h4>
+          <div class="muted">Placed with phone ending •••${phone.replace(/\D/g,'').slice(-3)}</div>
+        </div>
+        <div class="track-status-pill">${icon(isDelivered ? 'check' : 'truck', 15)} ${statusLabel}</div>
+      </div>
+      <div class="timeline">${buildTimelineHTML(currentIndex, orderId, etaDays)}</div>
+      ${!isDelivered ? `<p style="text-align:center;color:var(--muted);font-size:13.5px;margin-top:20px;">Estimated arrival in ${etaDays} day${etaDays > 1 ? 's' : ''}. We'll notify you on WhatsApp as your order progresses.</p>` : ''}
+      <div style="text-align:center;margin-top:24px;">
+        <a href="https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello, I would like an update on my order ' + orderId.toUpperCase())}" target="_blank" rel="noopener" class="btn btn-green">${icon('whatsapp', 16)} Ask About This Order</a>
+      </div>
+    `;
+    resultWrap.style.display = 'block';
+    resultWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  updateHeaderBadges();
+});
+</script>
+</body>
+</html>

@@ -32,9 +32,7 @@
 <script src="js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('header-slot').innerHTML = renderHeader('shop');
-  document.getElementById('footer-slot').innerHTML = renderFooter();
-  initMobileMenu();
+  initHeaderAndFooter('shop');
 
   const id = Number(new URLSearchParams(location.search).get('id'));
   const p = getProductById(id);
@@ -61,9 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
   wrap.innerHTML = `
     <div class="product-detail">
       <div>
-        <div class="gallery-main"><img id="main-img" src="${p.images[0]}" alt="${p.name}"></div>
+        <div class="gallery-main" id="gallery-main">
+          ${p.images.map((img, i) => `<img src="${img}" alt="${p.name}" class="g-slide ${i === 0 ? 'active' : ''}">`).join('')}
+          <div class="gallery-dots" id="gallery-dots">
+            ${p.images.map((_, i) => `<span class="g-dot ${i === 0 ? 'active' : ''}"></span>`).join('')}
+          </div>
+        </div>
         <div class="gallery-thumbs" id="thumbs">
-          ${p.images.map((img, i) => `<img src="${img}" data-src="${img}" class="${i===0?'active':''}" alt="">`).join('')}
+          ${p.images.map((img, i) => `<img src="${img}" data-i="${i}" class="${i===0?'active':''}" alt="">`).join('')}
         </div>
       </div>
       <div class="detail-info">
@@ -137,11 +140,37 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   `;
 
-  wrap.querySelectorAll('#thumbs img').forEach(t => {
+  const gallerySlides = wrap.querySelectorAll('#gallery-main .g-slide');
+  const galleryDots = wrap.querySelectorAll('#gallery-dots .g-dot');
+  const galleryThumbs = wrap.querySelectorAll('#thumbs img');
+  const galleryMainEl = document.getElementById('gallery-main');
+  let galleryIndex = 0;
+  let galleryTimer = null;
+
+  function showGalleryImage(i) {
+    galleryIndex = (i + gallerySlides.length) % gallerySlides.length;
+    gallerySlides.forEach(s => s.classList.remove('active'));
+    galleryDots.forEach(d => d.classList.remove('active'));
+    galleryThumbs.forEach(t => t.classList.remove('active'));
+    gallerySlides[galleryIndex]?.classList.add('active');
+    galleryDots[galleryIndex]?.classList.add('active');
+    galleryThumbs[galleryIndex]?.classList.add('active');
+  }
+  function startGalleryAuto() {
+    clearInterval(galleryTimer);
+    if (gallerySlides.length > 1) {
+      galleryTimer = setInterval(() => showGalleryImage(galleryIndex + 1), 3200);
+    }
+  }
+  if (galleryMainEl) {
+    galleryMainEl.addEventListener('mouseenter', () => clearInterval(galleryTimer));
+    galleryMainEl.addEventListener('mouseleave', startGalleryAuto);
+    startGalleryAuto();
+  }
+  galleryThumbs.forEach(t => {
     t.addEventListener('click', () => {
-      document.getElementById('main-img').src = t.dataset.src;
-      wrap.querySelectorAll('#thumbs img').forEach(x => x.classList.remove('active'));
-      t.classList.add('active');
+      showGalleryImage(Number(t.dataset.i));
+      startGalleryAuto();
     });
   });
   wrap.querySelectorAll('#color-options .option-btn').forEach(b => {

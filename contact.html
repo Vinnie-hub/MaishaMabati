@@ -66,9 +66,7 @@
 <script src="js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('header-slot').innerHTML = renderHeader('contact');
-  document.getElementById('footer-slot').innerHTML = renderFooter();
-  initMobileMenu();
+  initHeaderAndFooter('contact');
 
   document.querySelectorAll('[data-icon]').forEach(el => el.innerHTML = icon(el.dataset.icon, 22));
   document.getElementById('contact-submit').innerHTML = icon('whatsapp', 18) + ' Send via WhatsApp';

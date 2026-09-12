@@ -4,6 +4,7 @@
 const PRODUCTS = [
   {
     id: 1,
+    urgency: "Only 8 rolls left this month",
     name: "Maisha Aluzinc Mabati",
     category: "Roofing Sheets",
     price: 350,
@@ -14,6 +15,7 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=85",
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85",
       "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=85",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=85",
     ],
     description:
       "Premium alu-zinc coated roofing sheet — rustproof, heat reflective and durable for all Kenyan weather conditions. KEBS certified with a 15-year performance warranty.",
@@ -26,6 +28,7 @@ const PRODUCTS = [
   },
   {
     id: 2,
+    urgency: "Selling fast — 12 left",
     name: "Maisha Box Profile",
     category: "Roofing Sheets",
     price: 500,
@@ -35,6 +38,8 @@ const PRODUCTS = [
     images: [
       "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=85",
       "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=85",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85",
+      "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=85",
     ],
     description:
       "Modern box profile roofing sheet with high gloss finish. Scratch resistant, long-lasting and available in a wide range of colours.",
@@ -56,6 +61,8 @@ const PRODUCTS = [
     images: [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85",
       "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=85",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85",
+      "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=85",
     ],
     description:
       "Roman tile profile — classic look with modern strength. Ideal for residential homes and premium commercial buildings.",
@@ -76,6 +83,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=85",
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=85",
+      "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=800&q=85",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=85",
     ],
     description:
       "Versatile profile suitable for both roofing and cladding applications. Strong, durable, and available in multiple gauges.",
@@ -96,6 +106,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=800&q=85",
+      "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=85",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85",
+      "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=85",
     ],
     description:
       "Traditional corrugated mabati with modern coating. Affordable and reliable — the go-to choice for Kenyan homes.",
@@ -108,6 +121,7 @@ const PRODUCTS = [
   },
   {
     id: 6,
+    urgency: "High demand — order early",
     name: "SIMBA CEMENT 50KG",
     category: "Cement",
     price: 600,
@@ -116,6 +130,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=800&q=85",
+      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=85",
+      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=85",
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=85",
     ],
     description:
       "High-strength 50kg cement bag. Ideal for foundations, slabs, plastering and general construction.",
@@ -136,6 +153,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=85",
+      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=85",
+      "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=800&q=85",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=85",
     ],
     description:
       "Heavy-duty binding wire for reinforcement and construction work. Corrosion-resistant galvanised finish.",
@@ -156,6 +176,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=85",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=85",
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=85",
+      "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=85",
     ],
     description:
       "Galvanized roofing nails with rubber washers. Corrosion-resistant and reliable.",
@@ -176,6 +199,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=85",
+      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=85",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85",
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=85",
     ],
     description:
       "Color-matched ridge cover for a clean roofline finish. Available in all our standard colours.",
@@ -196,6 +222,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=85",
+      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=85",
+      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=85",
+      "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=800&q=85",
     ],
     description:
       "Rugged construction wheelbarrow for site work. Heavy-duty frame and puncture-proof tyre.",
@@ -216,6 +245,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=85",
+      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=85",
+      "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=800&q=85",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=85",
     ],
     description:
       "Clean river sand for plastering and concrete works. Delivered countrywide.",
@@ -236,6 +268,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=85",
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=85",
+      "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=800&q=85",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=85",
     ],
     description:
       "Crushed stone ballast for concrete mixing. Available in 1-tonne and 7-tonne loads.",
@@ -256,6 +291,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85",
+      "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=800&q=85",
+      "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=85",
+      "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=85",
     ],
     description:
       "Economical gauge-32 corrugated mabati. Perfect for budget-conscious projects and rentals.",
@@ -268,6 +306,7 @@ const PRODUCTS = [
   },
   {
     id: 14,
+    urgency: "Only 6 left in stock",
     name: "Maisha Aluzinc G30 Premium",
     category: "Roofing Sheets",
     price: 420,
@@ -276,6 +315,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=85",
+      "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=85",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85",
     ],
     description:
       "Premium gauge-30 alu-zinc roofing sheet with extended warranty. The perfect balance of strength and value.",
@@ -296,6 +338,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=85",
+      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=85",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=85",
+      "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=85",
     ],
     description:
       "Self-drilling roofing screws with EPDM washers. Rust-proof, colour-matched to your roofing.",
@@ -308,6 +353,7 @@ const PRODUCTS = [
   },
   {
     id: 16,
+    urgency: "Limited stock — premium finish",
     name: "Maisha Stone Coated Tile",
     category: "Roofing Sheets",
     price: 950,
@@ -316,6 +362,9 @@ const PRODUCTS = [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85",
     images: [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=85",
+      "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=85",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85",
     ],
     description:
       "Premium stone-coated steel tile. Luxury look of traditional tiles with the strength and lightness of steel.",

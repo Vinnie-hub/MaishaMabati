@@ -29,9 +29,7 @@
 <script src="js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('header-slot').innerHTML = renderHeader('wishlist');
-  document.getElementById('footer-slot').innerHTML = renderFooter();
-  initMobileMenu();
+  initHeaderAndFooter('wishlist');
   renderWishlistPage();
   updateHeaderBadges();
 });

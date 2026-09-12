@@ -92,8 +92,8 @@ function renderProductCard(p) {
           <img src="${p.image}" alt="${p.name}" loading="lazy">
         </a>
         <div class="product-tags">
-          ${hasSale ? '<span class="tag tag-sale">Sale</span>' : ""}
-          ${p.featured ? '<span class="tag tag-new">Featured</span>' : ""}
+          ${hasSale ? `<span class="tag tag-sale">-${Math.round(100 - (p.salePrice / p.price) * 100)}%</span>` : ""}
+          ${p.bestSeller ? '<span class="tag tag-hot">Hot</span>' : (p.featured ? '<span class="tag tag-new">Featured</span>' : "")}
           ${!p.stock ? '<span class="tag tag-out">Out of Stock</span>' : ""}
         </div>
         <div class="product-quick-actions">
@@ -115,6 +115,7 @@ function renderProductCard(p) {
         <div class="product-stock ${p.stock ? "" : "out"}">
           ${p.stock ? icon("check", 12) + " In Stock" : icon("close", 12) + " Out of Stock"}
         </div>
+        ${p.urgency ? `<div class="product-urgency">${p.urgency}</div>` : ""}
         <div class="product-actions">
           <button class="btn btn-primary" data-action="add-cart" data-id="${p.id}"
             ${!p.stock ? 'disabled style="opacity:.5;cursor:not-allowed"' : ""}>
@@ -182,32 +183,38 @@ function renderHeader(activePage = "") {
         </div>
       </div>
     </div>
-    <div class="container">
-      <div class="header-main">
-        <button class="menu-toggle" aria-label="Menu" type="button">${icon("menu", 26)}</button>
-        <a href="index.html" class="brand">
-          <img src="${CONFIG.LOGO}" alt="${CONFIG.BUSINESS_NAME}">
-        </a>
-        <form class="search-bar" role="search">
-          <input type="search" placeholder="Search for mabati, cement, steel..." aria-label="Search">
-          <button type="submit" aria-label="Search">${icon("search", 18)}</button>
-        </form>
-        <div class="header-icons">
-          <a href="compare.html" class="icon-btn ${activePage === "compare" ? "active" : ""}" title="Compare">
-            <span class="icon">${icon("compare", 22)}</span>
-            <span class="label">Compare</span>
-            <span class="badge" data-badge="compare" style="display:none">0</span>
+    <div class="header-sticky-wrap" id="header-sticky-wrap">
+      <div class="container">
+        <div class="header-main">
+          <button class="menu-toggle" aria-label="Menu" type="button">${icon("menu", 26)}</button>
+          <a href="index.html" class="brand">
+            <img src="${CONFIG.LOGO}" alt="${CONFIG.BUSINESS_NAME}">
           </a>
-          <a href="wishlist.html" class="icon-btn ${activePage === "wishlist" ? "active" : ""}" title="Wishlist">
-            <span class="icon">${icon("heart", 22)}</span>
-            <span class="label">Wishlist</span>
-            <span class="badge" data-badge="wishlist" style="display:none">0</span>
-          </a>
-          <a href="cart.html" class="icon-btn ${activePage === "cart" ? "active" : ""}" title="Cart">
-            <span class="icon">${icon("cart", 22)}</span>
-            <span class="label">Cart</span>
-            <span class="badge" data-badge="cart" style="display:none">0</span>
-          </a>
+          <form class="search-bar" role="search">
+            <input type="search" placeholder="Search for mabati, cement, steel..." aria-label="Search">
+            <button type="submit" aria-label="Search">${icon("search", 18)}</button>
+          </form>
+          <div class="header-icons">
+            <a href="track-order.html" class="icon-btn ${activePage === "track" ? "active" : ""}" title="Track Order">
+              <span class="icon">${icon("truck", 22)}</span>
+              <span class="label">Track</span>
+            </a>
+            <a href="compare.html" class="icon-btn ${activePage === "compare" ? "active" : ""}" title="Compare">
+              <span class="icon">${icon("compare", 22)}</span>
+              <span class="label">Compare</span>
+              <span class="badge" data-badge="compare" style="display:none">0</span>
+            </a>
+            <a href="wishlist.html" class="icon-btn ${activePage === "wishlist" ? "active" : ""}" title="Wishlist">
+              <span class="icon">${icon("heart", 22)}</span>
+              <span class="label">Wishlist</span>
+              <span class="badge" data-badge="wishlist" style="display:none">0</span>
+            </a>
+            <a href="cart.html" class="icon-btn ${activePage === "cart" ? "active" : ""}" title="Cart">
+              <span class="icon">${icon("cart", 22)}</span>
+              <span class="label">Cart</span>
+              <span class="badge" data-badge="cart" style="display:none">0</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -217,6 +224,7 @@ function renderHeader(activePage = "") {
         <ul>
           <li><a href="index.html" class="${activePage === "home" ? "active" : ""}">Home</a></li>
           <li><a href="shop.html" class="${activePage === "shop" ? "active" : ""}">Shop</a></li>
+          <li><a href="track-order.html" class="${activePage === "track" ? "active" : ""}">Track Order</a></li>
           <li><a href="about.html" class="${activePage === "about" ? "active" : ""}">About</a></li>
           <li><a href="contact.html" class="${activePage === "contact" ? "active" : ""}">Contact</a></li>
         </ul>
@@ -229,12 +237,35 @@ function renderHeader(activePage = "") {
     <h3>Menu</h3>
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
+    <a href="track-order.html">Track Order</a>
     <a href="wishlist.html">Wishlist</a>
     <a href="compare.html">Compare</a>
     <a href="cart.html">Cart</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </aside>`;
+}
+
+function initHeaderAndFooter(activePage = "") {
+  const headerSlot = document.getElementById("header-slot");
+  const footerSlot = document.getElementById("footer-slot");
+  if (headerSlot) headerSlot.innerHTML = renderHeader(activePage);
+  if (footerSlot) footerSlot.innerHTML = renderFooter();
+  initMobileMenu();
+  initHeaderSearch();
+  initStickyHeader();
+  updateHeaderBadges();
+}
+
+function initStickyHeader() {
+  const wrap = document.getElementById("header-sticky-wrap");
+  if (!wrap) return;
+  const onScroll = () => {
+    if (window.scrollY > 8) wrap.classList.add("is-stuck");
+    else wrap.classList.remove("is-stuck");
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
 }
 
 function renderFooter() {
@@ -267,6 +298,7 @@ function renderFooter() {
         <div>
           <h4>Quick Links</h4>
           <ul>
+            <li><a href="track-order.html">Track Your Order</a></li>
             <li><a href="wishlist.html">Wishlist</a></li>
             <li><a href="compare.html">Compare</a></li>
             <li><a href="cart.html">Cart</a></li>
@@ -306,5 +338,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initMobileMenu();
   initHeaderSearch();
   initGlobalActions();
+  initStickyHeader();
   updateHeaderBadges();
 });

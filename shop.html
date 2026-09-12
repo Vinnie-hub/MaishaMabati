@@ -59,11 +59,7 @@
 <script src="js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const headerSlot = document.getElementById('header-slot');
-  const footerSlot = document.getElementById('footer-slot');
-  if (headerSlot) headerSlot.innerHTML = renderHeader('shop');
-  if (footerSlot) footerSlot.innerHTML = renderFooter();
-  initMobileMenu();
+  initHeaderAndFooter('shop');
 
   document.querySelectorAll('[data-icon-h]').forEach(el => {
     el.innerHTML = icon(el.dataset.iconH, 14) + ' ' + el.textContent;

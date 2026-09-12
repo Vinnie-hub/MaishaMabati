@@ -83,6 +83,18 @@
   </div>
 </section>
 
+<!-- TRUST STATS -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item"><div class="num">15+</div><div class="label">Years in Business</div></div>
+      <div class="stat-item"><div class="num">5,000+</div><div class="label">Happy Customers</div></div>
+      <div class="stat-item"><div class="num">47</div><div class="label">Counties Delivered To</div></div>
+      <div class="stat-item"><div class="num">100%</div><div class="label">KEBS Certified Products</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- STORY -->
 <section class="section">
   <div class="container">
@@ -116,9 +128,9 @@
 <section class="section">
   <div class="container">
     <div class="grid-header">
-      <h3>Latest Deals This Month</h3>
+      <h3 id="deals-heading">Latest Deals This Month</h3>
       <div class="countdown-wrap">
-        <div class="countdown" id="countdown" data-date="2026/12/31">
+        <div class="countdown" id="countdown">
           <div class="count-item days">00</div>
           <span class="separator">:</span>
           <div class="count-item hours">00</div>
@@ -127,7 +139,7 @@
           <span class="separator">:</span>
           <div class="count-item second">00</div>
         </div>
-        <div class="countdown-label">Remains until end of offer</div>
+        <div class="countdown-label">Remain until deals reset</div>
       </div>
       <a href="shop.html" class="view-all">View All <span data-arrow></span></a>
     </div>
@@ -228,17 +240,22 @@
       <div class="testimonial">
         <div class="stars" data-stars></div>
         <p class="quote">"Maisha Mabati roofing sheets are extremely durable and affordable. The team guided me through the selection process and my house has never looked better."</p>
-        <div class="person"><div class="avatar">TS</div><div><div class="name">Tonny Siema</div><div class="role">Businessman</div></div></div>
+        <div class="person"><div class="avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces&q=80" alt="Tonny Siema" loading="lazy"></div><div><div class="name">Tonny Siema</div><div class="role">Businessman</div></div></div>
       </div>
       <div class="testimonial">
         <div class="stars" data-stars></div>
         <p class="quote">"Fast delivery and excellent quality! I was able to complete my project on time thanks to Maisha Mabati. Their customer service is top-notch."</p>
-        <div class="person"><div class="avatar">MA</div><div><div class="name">Mary A.</div><div class="role">Sales Manager, Nairobi</div></div></div>
+        <div class="person"><div class="avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces&q=80" alt="Mary A." loading="lazy"></div><div><div class="name">Mary A.</div><div class="role">Sales Manager, Nairobi</div></div></div>
       </div>
       <div class="testimonial">
         <div class="stars" data-stars></div>
         <p class="quote">"I've been using Maisha Alu-zinc sheets for all my building projects. Strong, weather-resistant and cost-effective. Truly a brand you can trust."</p>
-        <div class="person"><div class="avatar">KO</div><div><div class="name">Kevin O.</div><div class="role">Business Manager, Umoja</div></div></div>
+        <div class="person"><div class="avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces&q=80" alt="Kevin O." loading="lazy"></div><div><div class="name">Kevin O.</div><div class="role">Business Manager, Umoja</div></div></div>
+      </div>
+      <div class="testimonial">
+        <div class="stars" data-stars></div>
+        <p class="quote">"Ordered a full container load for our estate project. The team tracked our delivery for us and kept us updated the whole way. Superb experience."</p>
+        <div class="person"><div class="avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces&q=80" alt="Grace N." loading="lazy"></div><div><div class="name">Grace N.</div><div class="role">Site Manager, Nakuru</div></div></div>
       </div>
     </div>
   </div>
@@ -270,9 +287,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   // Inject shared header/footer
-  document.getElementById('header-slot').innerHTML = renderHeader('home');
-  document.getElementById('footer-slot').innerHTML = renderFooter();
-  initMobileMenu();
+  initHeaderAndFooter('home');
 
   // Decorate SVGs
   document.querySelectorAll('[data-icon]').forEach(el => el.innerHTML = icon(el.dataset.icon, 26));
@@ -309,11 +324,15 @@ document.addEventListener('DOMContentLoaded', () => {
     restart();
   })();
 
-  // Countdown
+  // "This month" heading + countdown to end of current month (always accurate & urgent)
   (function () {
     const el = document.getElementById('countdown');
     if (!el) return;
-    const target = new Date(el.dataset.date.replace(/-/g, '/')).getTime();
+    const now = new Date();
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const heading = document.getElementById('deals-heading');
+    if (heading) heading.textContent = 'Latest Deals — ' + monthNames[now.getMonth()] + ' ' + now.getFullYear();
+    const target = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0).getTime();
     const d = el.querySelector('.days'), h = el.querySelector('.hours');
     const m = el.querySelector('.minutes'), s = el.querySelector('.second');
     const pad = n => (n < 10 ? '0' + n : '' + n);
