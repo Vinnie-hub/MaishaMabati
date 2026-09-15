@@ -173,14 +173,8 @@ function renderHeader(activePage = "") {
   <header class="site-header">
     <div class="topbar">
       <div class="container">
-        <div class="contact-links">
-          <span class="contact-item">${icon("phone", 15)}<a href="tel:${CONFIG.PHONE_TEL}">${CONFIG.PHONE}</a></span>
-          <span class="contact-item">${icon("mail", 15)}<a href="mailto:${CONFIG.EMAIL}">${CONFIG.EMAIL}</a></span>
-        </div>
-        <div class="delivery-message">
-          <span class="delivery-dot"></span>
-          <span>Countrywide delivery · Same-day in Nairobi</span>
-        </div>
+        <a href="tel:${CONFIG.PHONE_TEL}">${icon("phone", 14)} <span>${CONFIG.PHONE}</span></a>
+        <a href="mailto:${CONFIG.EMAIL}" class="topbar-email">${icon("mail", 14)} <span>${CONFIG.EMAIL}</span></a>
       </div>
     </div>
     <div class="header-sticky-wrap" id="header-sticky-wrap">
@@ -195,6 +189,13 @@ function renderHeader(activePage = "") {
             <button type="submit" aria-label="Search">${icon("search", 18)}</button>
           </form>
           <div class="header-icons">
+            <div class="offers-wrap">
+              <button type="button" class="icon-btn offers-trigger" id="offers-trigger" aria-haspopup="true" aria-expanded="false" title="Top Offers">
+                <span class="icon">${icon("tag", 22)}</span>
+                <span class="label">Offers</span>
+              </button>
+              <div class="offers-dropdown" id="offers-dropdown" role="menu" aria-label="Top offers this week"></div>
+            </div>
             <a href="track-order.html" class="icon-btn ${activePage === "track" ? "active" : ""}" title="Track Order">
               <span class="icon">${icon("truck", 22)}</span>
               <span class="label">Track</span>
@@ -243,6 +244,10 @@ function renderHeader(activePage = "") {
     <a href="cart.html">Cart</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
+    <div class="mobile-menu-info">
+      <p>${icon("truck", 15)} <span>Countrywide delivery — same-day in Nairobi</span></p>
+      <p>${icon("clock", 15)} <span>${CONFIG.HOURS}</span></p>
+    </div>
   </aside>`;
 }
 
@@ -254,15 +259,97 @@ function initHeaderAndFooter(activePage = "") {
   initMobileMenu();
   initHeaderSearch();
   initStickyHeader();
+  initOffersDropdown();
   updateHeaderBadges();
+}
+
+/* ---------- Top Offers dropdown (header) ---------- */
+function renderOffersDropdownContent() {
+  const offers = typeof getTopOffers === "function" ? getTopOffers(6) : [];
+
+  if (!offers.length) {
+    return `<div class="offers-empty">No offers right now — check back this week.</div>`;
+  }
+
+  const maxDiscount = Math.max(...offers.map(getDiscountPercent));
+
+  return `
+    <div class="offers-dropdown-head">
+      <strong>${icon("tag", 15)} This Week's Top Offers</strong>
+      <span>Up to ${Math.min(maxDiscount, 50)}% off our best-selling products</span>
+    </div>
+    <div class="offers-dropdown-list">
+      ${offers
+        .map((p) => {
+          const d = getDiscountPercent(p);
+          return `
+        <a href="products.html?id=${p.id}" class="offer-item" role="menuitem">
+          <img src="${p.image}" alt="${p.name}" loading="lazy">
+          <div class="offer-item-info">
+            <span class="offer-item-name">${p.name}</span>
+            <span class="offer-item-price"><ins>${formatMoney(p.salePrice)}</ins><del>${formatMoney(p.price)}</del></span>
+          </div>
+          <span class="offer-item-badge">-${d}%</span>
+        </a>`;
+        })
+        .join("")}
+    </div>
+    <a href="shop.html?sale=1" class="offers-dropdown-footer">View all offers ${icon("arrowR", 14)}</a>
+  `;
+}
+
+function initOffersDropdown() {
+  const trigger = document.getElementById("offers-trigger");
+  const panel = document.getElementById("offers-dropdown");
+  const wrap = trigger?.closest(".offers-wrap");
+  if (!trigger || !panel || !wrap) return;
+
+  panel.innerHTML = renderOffersDropdownContent();
+
+  const close = () => {
+    wrap.classList.remove("open");
+    trigger.setAttribute("aria-expanded", "false");
+  };
+  const toggle = () => {
+    const isOpen = wrap.classList.toggle("open");
+    trigger.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  trigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggle();
+  });
+  document.addEventListener("click", (e) => {
+    if (!wrap.contains(e.target)) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
 }
 
 function initStickyHeader() {
   const wrap = document.getElementById("header-sticky-wrap");
   if (!wrap) return;
+  let lastScrollY = window.scrollY;
+
   const onScroll = () => {
-    if (window.scrollY > 8) wrap.classList.add("is-stuck");
-    else wrap.classList.remove("is-stuck");
+    const currentScrollY = window.scrollY;
+    wrap.classList.toggle("is-stuck", currentScrollY > 8);
+
+    // At the very top — always show header
+    if (currentScrollY <= 10) {
+      wrap.classList.remove("header-hidden");
+    }
+    // Scrolling down — hide header
+    else if (currentScrollY > lastScrollY) {
+      wrap.classList.add("header-hidden");
+    }
+    // Scrolling up — show header
+    else if (currentScrollY < lastScrollY) {
+      wrap.classList.remove("header-hidden");
+    }
+
+    lastScrollY = currentScrollY;
   };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -309,6 +396,7 @@ function renderFooter() {
         <div>
           <h4>Contact</h4>
           <ul class="contact-info">
+            <li><span class="contact-icon">${icon("truck", 16)}</span><span>Countrywide delivery — same-day in Nairobi</span></li>
             <li><span class="contact-icon">${icon("phone", 16)}</span><a href="tel:${CONFIG.PHONE_TEL}">${CONFIG.PHONE}</a></li>
             <li><span class="contact-icon">${icon("mail", 16)}</span><a href="mailto:${CONFIG.EMAIL}">${CONFIG.EMAIL}</a></li>
             <li><span class="contact-icon">${icon("pin", 16)}</span><span>${CONFIG.ADDRESS}</span></li>

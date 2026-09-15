@@ -190,10 +190,22 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('qty-inc').addEventListener('click', () => { qty++; document.getElementById('qty-input').value = qty; });
   document.getElementById('qty-dec').addEventListener('click', () => { if (qty > 1) qty--; document.getElementById('qty-input').value = qty; });
 
+  const wishBtn = document.getElementById('wish-btn');
+  const cmpBtn = document.getElementById('cmp-btn');
+  function syncDetailButtons() {
+    const inWish = isInWishlist(p.id);
+    const inCmp = isInCompare(p.id);
+    wishBtn.classList.toggle('active', inWish);
+    wishBtn.innerHTML = icon(inWish ? 'heartFill' : 'heart', 18) + (inWish ? ' In Wishlist' : ' Wishlist');
+    cmpBtn.classList.toggle('active', inCmp);
+    cmpBtn.innerHTML = icon('compare', 18) + (inCmp ? ' In Compare' : ' Compare');
+  }
+  syncDetailButtons();
+
   document.getElementById('add-cart').addEventListener('click', () => addToCart(p.id, qty, selectedColor, selectedVariant));
   document.getElementById('wa-order').addEventListener('click', () => orderSingleWhatsApp(p.id, qty, selectedColor, selectedVariant));
-  document.getElementById('wish-btn').addEventListener('click', () => toggleWishlist(p.id));
-  document.getElementById('cmp-btn').addEventListener('click', () => toggleCompare(p.id));
+  wishBtn.addEventListener('click', () => { toggleWishlist(p.id); syncDetailButtons(); });
+  cmpBtn.addEventListener('click', () => { toggleCompare(p.id); syncDetailButtons(); });
 
   wrap.querySelectorAll('.tab-headers button').forEach(btn => {
     btn.addEventListener('click', () => {

@@ -48,7 +48,7 @@ function renderComparePage() {
   if (list.length === 0) {
     wrap.innerHTML = `
       <div class="empty-state">
-        <div class="ico">${Icon("compare")}</div>
+        <div class="ico">${icon("compare")}</div>
         <h3>No products to compare</h3>
         <p>Add up to 4 products to compare their specs side by side.</p>
         <a href="shop.html" class="btn btn-primary">Browse Products</a>
@@ -88,14 +88,14 @@ function renderComparePage() {
     {
       label: "",
       render: (p) =>
-        `<button class="btn btn-primary btn-sm" data-action="add-cart" data-id="${p.id}">${Icon("cart")} Add to Cart</button>`,
+        `<button class="btn btn-primary btn-sm" data-action="add-cart" data-id="${p.id}">${icon("cart")} Add to Cart</button>`,
     },
   ];
 
   let html =
     '<div class="compare-scroll"><table class="compare-table"><thead><tr><th>Feature</th>';
   list.forEach((p) => {
-    html += `<th>${p.name} <span class="remove-col" data-remove="${p.id}" title="Remove">${Icon("close")}</span></th>`;
+    html += `<th>${p.name} <span class="remove-col" data-remove="${p.id}" title="Remove">${icon("close")}</span></th>`;
   });
   html += "</tr></thead><tbody>";
 
