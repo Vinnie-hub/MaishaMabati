@@ -14,7 +14,7 @@
 
 <!-- HERO SLIDER -->
 <section class="hero-slider" id="hero-slider">
-  <div class="slide active" style="background-image:url('https://images.pexels.com/photos/34597567/pexels-photo-34597567.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+  <div class="slide active" style="background-image:url('images/blue-mabati-house.webp');">
     <div class="container">
       <div class="hero-content">
         <span class="hero-tag" id="hero-tag-1"></span>
@@ -27,7 +27,7 @@
       </div>
     </div>
   </div>
-  <div class="slide" style="background-image:url('https://images.pexels.com/photos/27927317/pexels-photo-27927317.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+  <div class="slide" style="background-image:url('images/construction-set-2.webp');">
     <div class="container">
       <div class="hero-content">
         <span class="hero-tag" id="hero-tag-2"></span>
@@ -40,7 +40,7 @@
       </div>
     </div>
   </div>
-  <div class="slide" style="background-image:url('https://images.pexels.com/photos/31763543/pexels-photo-31763543.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+  <div class="slide" style="background-image:url('images/corrugated-roofing-sheet-09.webp');">
     <div class="container">
       <div class="hero-content">
         <span class="hero-tag" id="hero-tag-3"></span>
@@ -107,7 +107,7 @@
         <a href="about.html" class="btn btn-primary" style="margin-top:14px;">Learn More <span data-arrow></span></a>
       </div>
       <div class="story-img">
-        <img src="https://images.pexels.com/photos/31945552/pexels-photo-31945552.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Maisha Mabati roofing" loading="lazy">
+        <img src="images/hero-house.webp" alt="Maisha Mabati roofing" loading="lazy">
       </div>
     </div>
   </div>
@@ -176,7 +176,7 @@
   <div class="container">
     <div class="why-grid">
       <div class="why-img">
-        <img src="https://images.pexels.com/photos/10059198/pexels-photo-10059198.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Why Maisha Mabati" loading="lazy">
+        <img src="images/corrugated-roofing-sheet-10.webp" alt="Why Maisha Mabati" loading="lazy">
       </div>
       <div>
         <h2 class="why-heading">Why Maisha Mabati</h2>
@@ -198,7 +198,7 @@
 <!-- PROMO -->
 <section class="container">
   <div class="promo-grid">
-    <div class="promo-card" style="background-image:url('https://images.pexels.com/photos/34597567/pexels-photo-34597567.jpeg?auto=compress&cs=tinysrgb&w=1200');">
+    <div class="promo-card" style="background-image:url('images/corrugated-roofing-sheet-08.webp');">
       <div class="inner">
         <span class="badge-p">Order Today</span>
         <h3>KEBS Diamond Mark of Quality</h3>
@@ -206,7 +206,7 @@
         <a href="shop.html" class="btn btn-accent">Shop Now <span data-arrow></span></a>
       </div>
     </div>
-    <div class="promo-card" style="background-image:url('https://images.pexels.com/photos/31763543/pexels-photo-31763543.jpeg?auto=compress&cs=tinysrgb&w=1200');">
+    <div class="promo-card" style="background-image:url('images/corrugated-roofing-sheet-19.webp');">
       <div class="inner">
         <span class="badge-p">On Sale</span>
         <h3>Right Building Mabati, Right Price</h3>
@@ -354,12 +354,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Categories
   const catImages = {
-    'Roofing Sheets': 'https://images.pexels.com/photos/34597567/pexels-photo-34597567.jpeg?auto=compress&cs=tinysrgb&w=500',
-    'Steel': 'https://images.pexels.com/photos/10059198/pexels-photo-10059198.jpeg?auto=compress&cs=tinysrgb&w=500',
-    'Cement': 'https://images.pexels.com/photos/6473974/pexels-photo-6473974.jpeg?auto=compress&cs=tinysrgb&w=500',
-    'Building Materials': 'https://images.pexels.com/photos/5799727/pexels-photo-5799727.jpeg?auto=compress&cs=tinysrgb&w=500',
-    'Roofing Accessories': 'https://images.pexels.com/photos/33404248/pexels-photo-33404248.jpeg?auto=compress&cs=tinysrgb&w=500',
-    'Hardware': 'https://images.pexels.com/photos/17046829/pexels-photo-17046829.jpeg?auto=compress&cs=tinysrgb&w=500'
+    'Roofing Sheets': 'images/mixed-colour-mabati.webp',
+    'Steel': 'images/building-steel-binding-wire.webp',
+    'Cement': 'images/cement-store.webp',
+    'Building Materials': 'images/construction-materials-product-01.webp',
+    'Roofing Accessories': 'images/construction-nails.webp',
+    'Hardware': 'images/construction-set-2.webp'
   };
   document.getElementById('home-categories').innerHTML = CONFIG.CATEGORIES.map(cat => `
     <a href="shop.html?category=${encodeURIComponent(cat)}" class="cat-card" style="background-image:url('${catImages[cat] || catImages['Roofing Sheets']}');">

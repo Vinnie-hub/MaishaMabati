@@ -423,9 +423,8 @@ function renderFooter() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  initMobileMenu();
-  initHeaderSearch();
+  // Header/footer (and the menu, search box and sticky-header wiring that
+  // depends on them) are set up by initHeaderAndFooter(), called from each
+  // page's own inline script. Only global click delegation is needed here.
   initGlobalActions();
-  initStickyHeader();
-  updateHeaderBadges();
 });
