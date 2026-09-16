@@ -3,11 +3,11 @@ const PRODUCTS = [
 
   {
     id: 1,
-    urgency: "Only 8 rolls left this month",
+    urgency: "Current Price Valid While Stock Lasts",
     name: "Maisha Aluzinc Mabati (Per Metre)",
     category: "Roofing Sheets",
-    price: 520,
-    salePrice: 390,
+    price: 735,
+    salePrice: 550,
     image: "images/corrugated-roofing-sheet-05.webp",
     images: [
       "images/corrugated-roofing-sheet-04.webp",
@@ -30,11 +30,11 @@ const PRODUCTS = [
 
   {
     id: 2,
-    urgency: "Selling fast — 12 left",
+    urgency: "Selling fast — order early",
     name: "Maisha Box Profile Mabati (Per Metre)",
     category: "Roofing Sheets",
-    price: 520,
-    salePrice: 400,
+    price: 675,
+    salePrice: 520,
     image: "images/maisha-box-profile.webp",
     images: [
       "images/maisha-box-profile.webp",
@@ -56,8 +56,8 @@ const PRODUCTS = [
     id: 3,
     name: "Maisha Roman Tile Mabati (Per Metre)",
     category: "Roofing Sheets",
-    price: 630,
-    salePrice: 490,
+    price: 810,
+    salePrice: 630,
     image: "images/corrugated-roofing-sheet-11.webp",
     images: [
       "images/corrugated-roofing-sheet-11.webp",
@@ -80,8 +80,8 @@ const PRODUCTS = [
     id: 4,
     name: "Maisha Versatile Mabati (Per Metre)",
     category: "Roofing Sheets",
-    price: 630,
-    salePrice: 490,
+    price: 810,
+    salePrice: 630,
     image: "images/corrugated-roofing-sheet-15.webp",
     images: [
       "images/corrugated-roofing-sheet-15.webp",
@@ -107,8 +107,8 @@ const PRODUCTS = [
     id: 5,
     name: "Maisha Dumuzas Corrugated Mabati (Per Metre)",
     category: "Roofing Sheets",
-    price: 520,
-    salePrice: 390,
+    price: 735,
+    salePrice: 520,
     image: "images/mixed-colour-mabati.webp",
     images: [
       "images/aluzinc-mabati-roofing.webp",
@@ -130,8 +130,8 @@ const PRODUCTS = [
     id: 13,
     name: "Maisha Corrugated Mabati G32 (Per Metre)",
     category: "Roofing Sheets",
-    price: 480,
-    salePrice: 360,
+    price: 640,
+    salePrice: 480,
     image: "images/marroon-corrugated-mabati-g32.webp",
     images: [
       "images/marroon-corrugated-mabati-g32.webp",
@@ -150,11 +150,11 @@ const PRODUCTS = [
 
   {
     id: 14,
-    urgency: "Only 6 left in stock",
+    urgency: "Current Price Valid While Stock Lasts",
     name: "Maisha Aluzinc G30 Premium (Per Metre)",
     category: "Roofing Sheets",
-    price: 580,
-    salePrice: 450,
+    price: 750,
+    salePrice: 680,
     image: "images/aluzinc-g30-premium.webp",
     images: [
       "images/aluzinc-g30-premium.webp",
@@ -177,8 +177,8 @@ const PRODUCTS = [
     urgency: "Limited stock — premium finish",
     name: "Maisha Stone Coated Tile (Per Metre)",
     category: "Roofing Sheets",
-    price: 900,
-    salePrice: 720,
+    price: 1020,
+    salePrice: 900,
     image: "images/stone-coated-tile.webp",
     images: [
       "images/stone-coated-tile.webp",
